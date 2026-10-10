@@ -3,6 +3,7 @@ import { HEADER_CONTAINER, HeaderLogo, NotificationBell, HeaderIconButton } from
 import { Look, ActiveScreen, SavedCollection } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
 import { USER_AVATAR, INITIAL_SAVED_COLLECTIONS, BEAUTY_INTERESTS_LIST } from '../data/mockData';
+import { P } from '../data/images';
 import { AccountSettingsModal } from '../components/AccountSettingsModal';
 import { FollowersListModal } from '../components/FollowersListModal';
 import { UploadLookModal } from '../components/UploadLookModal';
@@ -72,7 +73,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   const [userPhotos, setUserPhotos] = useState<UserPhoto[]>([
     {
       id: 'photo-1',
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBbFoPwl81jH6W6dGMcHUrAoO1WUn1NLXWyt4aaOgmhBsWgMQIY208lTFNp9N9rKHr_2CP4QeLcnbjj3qs23RYjd-oqCm9Eaaygv6p_oL1iP5AdMon4d7ozFikEY82AO0LT3-g3G2XF9Y1srmFQrnyzS1kS0ZnG6uArkwccJhGLjanOU5RxWmL8L4RN4DTC6mMJUjtfBGlPgEuVxN3d8GMBYPC6ygMFRlRvzkP75R0P5mP9vf_SPWq6',
+      url: P.c15,
       caption: 'Lifting y nutrición de pestañas en Brow Bar Atelier',
       rating: 4.9,
       treatment: 'Lifting de pestañas',
@@ -80,7 +81,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
     },
     {
       id: 'photo-2',
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDUt3w00qyFtaq6pOYb3UL0IyR6GwmD2ZPkMXIPPWoy4I86PwVQCC4yijceqtT-sqcdNLzDWI3yLg7ZrLTxeHAcYd6lQrwvSLClugVSD5jeAeodtIogyeA4TntY4b86MZroau8pnWrRYd1ZNc3xSMM0NUodBfT1BM9Tc-wfbX8UNudLHiayON_uEdN1eTXw3Uolb-jjug3_8n7wOWKoatT_Ne3WwVvWQmO2Ok8mGAKEJvccZD1-nu9F',
+      url: P.u04,
       caption: 'Kapping Gel Cherry wine en Studio Velvet Nails',
       rating: 5.0,
       treatment: 'Kapping Gel Cherry',
@@ -88,7 +89,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
     },
     {
       id: 'photo-3',
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC_Szs81jT8OI-J0Yqb8XzPUyjoHHIDDs3oQaSx3qfo8jNtDadbwkzAeWC2ysWv5aCyBI0VW0ydhvRyL3uS3BbMz7Aoy-fGRfOiRkn_LyDqFoSA6JDrkVEmGFi35A6eGIOb_tURkfw-XqaNOZzXPB5n3nXAnxr3AwehRV4XA9KxVqMex5D8mZqVe_bVmPoSTCM2uFIu-gklqP0S0lAo9_qF7Jb_aH3wre2DmDEmePMw9UyH1tP52YSq',
+      url: P.u02,
       caption: 'Ondas con movimiento post-baño de brillo en Maison Hair Co.',
       rating: 5.0,
       treatment: 'Balayage & Styling',

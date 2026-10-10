@@ -1,13 +1,14 @@
 import { Look, SalonData, NotificationItem, SavedCollection, OtherUserProfile } from '../types';
+import { P, monogram } from './images';
 
-export const USER_AVATAR = 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMDxO71cxXYuw2EDKLs3thy1vIohEqBgujbWfCm1yNo_GdcdeSlDHcDAsb4O3d4o-EW0_lUOAljHMnl1IRlEjTS8noyEmB1BKaS403mysDpJqV8Tu1Aeyu0DkopjFG5f2ZVLMsD0iP0cxpnLobkf4KsIibSt9Z7f5MKrgG1XEsh5xxVDNxK-AODLvZ86s2hBtTD417r1ObmwsDuxdRMJu95ba3Ij2aLDIstmFkB4zYekOH-onXhI2Y';
+export const USER_AVATAR = monogram("Valentina Rossi");
 
 export const OTHER_USERS_DATA: Record<string, OtherUserProfile> = {
   'sofia-val': {
     id: 'sofia-val',
     name: 'Sofía Val',
     handle: '@sofia.val',
-    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCGJ6aO5jGquw7pEk55d4dgNCD-WVUBomDisExLWr9XjYq3PtgRTaC28rX0WfNaavy_7ZYSojnOf5Lm5tyhzGw8ZaagiYru_29tpwx4eBO-B13Ic6UBOz16_t2wKhJHu00mDPkYYtAm1YdRCKqT45ghb6W5-7gsV05a3IGI97tHt2cm2cHZQu26EqCJrPsBqUS_rOw-WKL9hPcdlKSJU-dCzmFfOhVN4vTlEjZIb2a6scy7OfgCacNk',
+    avatar: monogram("Sofía Val"),
     bio: 'Fanática del balayage cálido y tratamientos de brillo espejo. Explorando los mejores salones de Pocitos & Punta Carretas ✨',
     city: 'Montevideo',
     followersCount: 420,
@@ -17,7 +18,7 @@ export const OTHER_USERS_DATA: Record<string, OtherUserProfile> = {
     sharedPhotos: [
       {
         id: 'user-photo-1',
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDzpUDFobE4UUfNQ0tum3bik6iZZEhIpoiyb9IX6zrfDDSxpMTCqQoyc3ZoJA6hMiT-cY7meZTy6dsn3gzZROyHeLOkpSHAxMlo0OTKmqGkTpbKoscfRWZhMBKoMm282-ZQwWlDK-aq6eJjaA4ZdcOEcjNwVsrQv2ncyXyY9fAju6NNer5TAK_CwBd-H0b4TuIlzeG-GNDGzyrtBLzsTW0I4OWBea42DC2qOHx_la3zMKHEVyxSBPev',
+        url: P.u01,
         caption: 'Balayage Vainilla a las 3 semanas de hacérmelo en Maison Hair Co.',
         salonName: 'Maison Hair Co. Studio',
         salonId: 'maison-hair-co',
@@ -27,7 +28,7 @@ export const OTHER_USERS_DATA: Record<string, OtherUserProfile> = {
       },
       {
         id: 'user-photo-2',
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAeqczQwYq1oXXNzm7Tc81K9kPIPD8TE2cNZSkbK0qRCroMxUMXl_xKN7Z11WgyPlXc6s7vpY-fhOOZ8hnGR5bMFngB5fQTUIWDmC9g45Icl01sE1gVJo5ggHet8RQWZFi40LU6yL_JcJnAx7fRA3DYAgNcQwYciev93J4Exp6WFFYkTVRziNGeysL6Mvgf-IMKw9GzERTz6GtDMW8LWPXlYdfWEyzabhAJhpUu8RMXXC9tpNi2WmnC',
+        url: P.u02,
         caption: 'Salida del salón con el Gloss Nutritivo. Cero frizz!',
         salonName: 'Maison Hair Co. Studio',
         salonId: 'maison-hair-co',
@@ -37,7 +38,7 @@ export const OTHER_USERS_DATA: Record<string, OtherUserProfile> = {
       },
       {
         id: 'user-photo-3',
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDUt3w00qyFtaq6pOYb3UL0IyR6GwmD2ZPkMXIPPWoy4I86PwVQCC4yijceqtT-sqcdNLzDWI3yLg7ZrLTxeHAcYd6lQrwvSLClugVSD5jeAeodtIogyeA4TntY4b86MZroau8pnWrRYd1ZNc3xSMM0NUodBfT1BM9Tc-wfbX8UNudLHiayON_uEdN1eTXw3Uolb-jjug3_8n7wOWKoatT_Ne3WwVvWQmO2Ok8mGAKEJvccZD1-nu9F',
+        url: P.u04,
         caption: 'Kapping Gel Cherry en Studio Velvet Nails',
         salonName: 'Studio Velvet Nails',
         salonId: 'studio-velvet-nails',
@@ -51,13 +52,13 @@ export const OTHER_USERS_DATA: Record<string, OtherUserProfile> = {
         id: 'sofia-col-1',
         name: 'Inspo Rubios Cálidos',
         count: 12,
-        coverUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAG42lK-2NWM9lb9tryiXjrTqpL8rnhjxv6SUy0Lbo-QKLKkrbry3sEj4vAEx65OAkXd97r4H4pQQy-fRz3a9Gfm_brxjgeOknno6_t9iSmiA_fqBi18Pn1lZRQsd-bcEu6ygzcU_VLyKkhx6GveqQULCLj72rJpKtiGFxr7CNoUl-oBuwW1lCUofN6_FgrpDhclR5JDVdbmpp0T87XysIHdpt70LPHPmQmmMX-ejh2i7wvbQQ7BLn9',
+        coverUrl: P.c01,
       },
       {
         id: 'sofia-col-2',
         name: 'Nail Art Minimalista',
         count: 8,
-        coverUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDDF6TleJi1HLPHYLcSGCx3w6D4w8_9QiXW3mdLhRw5P12Ed-lP2fHP5bwmYX9m8TnprSz9UmTr-7C-ySnSlouBRb0T1aN7txqa7pvCXSJRiu60RAUfPid1SWaj8ReaGvjsgNyqxVFM9PoK4DoObVNeX4GMXJvX97-h0mWIIW7TC156kwAAkxsVwNQ7KeZLxiY-9uiOpuqtGAZ2_UdoPdfsVFVek1Lnjb2_Q7qnidJ6jX6u6aLpip7X',
+        coverUrl: P.c07,
       },
     ],
   },
@@ -65,7 +66,7 @@ export const OTHER_USERS_DATA: Record<string, OtherUserProfile> = {
     id: 'camila-rossi',
     name: 'Camila Rossi',
     handle: '@camila.rossi',
-    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCnLZdOJ4d0HqO90TM-sedLBIfuuTNuBxZBPSCfMowdohT6oIfLZGRu1_FJynJMvWeXQkQ9nkHRJilk4Tih9vHi6t9YNi9y9r4syFkAIESOZuh0CapB5HXX8PbECrjSkdy2koyptbrb5I0coycW1i-cAU7Rnbry90xiOlavz1ITXTVx-kBXN_lQXnUOaU0rnd5Bzj8ue8gGvYVw3MsvUIOLQH7MGTQnmrTgxjk6xx5RXuJnRvN8mY-h',
+    avatar: monogram("Camila Rossi"),
     bio: 'Fotógrafa & beauty lover. Comparto resultados reales de manicuría rusa y lifting.',
     city: 'Montevideo',
     followersCount: 310,
@@ -75,7 +76,7 @@ export const OTHER_USERS_DATA: Record<string, OtherUserProfile> = {
     sharedPhotos: [
       {
         id: 'user-photo-4',
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDDF6TleJi1HLPHYLcSGCx3w6D4w8_9QiXW3mdLhRw5P12Ed-lP2fHP5bwmYX9m8TnprSz9UmTr-7C-ySnSlouBRb0T1aN7txqa7pvCXSJRiu60RAUfPid1SWaj8ReaGvjsgNyqxVFM9PoK4DoObVNeX4GMXJvX97-h0mWIIW7TC156kwAAkxsVwNQ7KeZLxiY-9uiOpuqtGAZ2_UdoPdfsVFVek1Lnjb2_Q7qnidJ6jX6u6aLpip7X',
+        url: P.u03,
         caption: 'Cutícula rusa impecable en Velvet Nails',
         salonName: 'Studio Velvet Nails',
         salonId: 'studio-velvet-nails',
@@ -90,7 +91,7 @@ export const OTHER_USERS_DATA: Record<string, OtherUserProfile> = {
     id: 'lucia-morales',
     name: 'Lucía Morales',
     handle: '@lucia.morales',
-    avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAOjKmtUgA1kr4NSjkPKTr2JDWXKkefKxcKnnEMZYwvoooNqaQ9D8J5MYDbV4PDgb8VOw1wZQbspjs95a22H0VAs4QvPA8vS7oSNUEvh6uPwZrQuaysS4Zt_Z5ZPtJnrS9jjLL7A9BizEPfoFL0tFwPmjGSApYVv2j4IM_sVMNrhBfXPZmZiurzGv7GLsclBYl7W5PGRK_-hhieQWfcYIvBDuC0SQT9aXfrQOyl6_tmLEDGcQbxwgWu',
+    avatar: monogram("Lucía Morales"),
     bio: 'Tratamientos capilares, masajes sensoriales y ondas naturales ✨',
     city: 'Montevideo',
     followersCount: 195,
@@ -107,8 +108,8 @@ export const SALONS_DATA: Record<string, SalonData> = {
     id: 'maison-hair-co',
     name: 'Maison Hair Co. Studio',
     initials: 'MH',
-    logo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCrVocG-HFvOIk8EwLh9YGNuj1IZNSLixooDpM9jQkkPxa4mm8P2hQHiveNuDdrAZmbbQn953SKJXfkBpb_E9I4qQoQww8ehT3GNMVx70oljngvF5GTiIR97c3dZcfvH9ZGo7nj_Hc90CAjGkA_ofyH8M-o502hfJSKXpjj4lzStwDJqJfmmqG-JX6s3w4KM783kwqH16EK9pbx_iFu8uhWVQr-sPWGuVBaRvJtvyLg4QIIlXv4zZ9K',
-    coverImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBjqLzYWkxHUCrh9mmifqIVs9NSVOtCcfbTgQXNY7xuYlt-6tBmcnbw2HjXCcCjxYjNVKfJZV3ftUr-nJtqFDkRauP4thmLDyhGRaS6R_yqWfjAWd1vf7A5KVRy0X872JrwpJYdzWrYZNmm08ADwHt_gb9Smjp3O5M1AyuvNDL5QKialuzu8mn2a9QjFla8-0ODDJ6P6bwO21x9DX0dBsH_iAYcaSeC2EuBx826Y47fELwQwdSskq_i',
+    logo: monogram("Maison Hair Co. Studio"),
+    coverImage: P.c02,
     verified: true,
     rating: 4.9,
     reviewsCount: 142,
@@ -122,12 +123,12 @@ export const SALONS_DATA: Record<string, SalonData> = {
     socialProof: '@sofia.val y 2 personas que seguís son clientas habituales',
     mutualFollowers: [
       {
-        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCGJ6aO5jGquw7pEk55d4dgNCD-WVUBomDisExLWr9XjYq3PtgRTaC28rX0WfNaavy_7ZYSojnOf5Lm5tyhzGw8ZaagiYru_29tpwx4eBO-B13Ic6UBOz16_t2wKhJHu00mDPkYYtAm1YdRCKqT45ghb6W5-7gsV05a3IGI97tHt2cm2cHZQu26EqCJrPsBqUS_rOw-WKL9hPcdlKSJU-dCzmFfOhVN4vTlEjZIb2a6scy7OfgCacNk',
+        avatar: monogram("Sofía Val"),
         name: 'Sofía Val',
         userId: 'sofia-val',
       },
       {
-        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCnLZdOJ4d0HqO90TM-sedLBIfuuTNuBxZBPSCfMowdohT6oIfLZGRu1_FJynJMvWeXQkQ9nkHRJilk4Tih9vHi6t9YNi9y9r4syFkAIESOZuh0CapB5HXX8PbECrjSkdy2koyptbrb5I0coycW1i-cAU7Rnbry90xiOlavz1ITXTVx-kBXN_lQXnUOaU0rnd5Bzj8ue8gGvYVw3MsvUIOLQH7MGTQnmrTgxjk6xx5RXuJnRvN8mY-h',
+        avatar: monogram("Camila Rossi"),
         name: 'Camila Rossi',
         userId: 'camila-rossi',
       },
@@ -185,7 +186,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
         stylist: 'Por Valentino R.',
         price: '$ 3.900',
         duration: '4h',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAG42lK-2NWM9lb9tryiXjrTqpL8rnhjxv6SUy0Lbo-QKLKkrbry3sEj4vAEx65OAkXd97r4H4pQQy-fRz3a9Gfm_brxjgeOknno6_t9iSmiA_fqBi18Pn1lZRQsd-bcEu6ygzcU_VLyKkhx6GveqQULCLj72rJpKtiGFxr7CNoUl-oBuwW1lCUofN6_FgrpDhclR5JDVdbmpp0T87XysIHdpt70LPHPmQmmMX-ejh2i7wvbQQ7BLn9',
+        image: P.c01,
         alt: 'Warm vanilla blonde balayage on long wavy healthy hair',
         lookId: 'look-balayage-vainilla',
       },
@@ -196,7 +197,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
         stylist: 'Por Carolina P.',
         price: '$ 4.200',
         duration: '3.5h',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAZm_zrW4ahaHQj7sbOlgHIsRO3emQwUM0Qsg1s-szX0eftjuhqxGamYaCrdJwVPVy1XCFdb3hUVggd2DcMSKx59Fux_2qtt6vV3h8WP1uM0P6hi2BXRdM6_D6JdKArLoobS1QC_VVwjzmqEocO1tJ_0nk8xa2wPXaLBMe6KHKKpCoAEFSqSDII6iJILv4xlbM1do_3Mx1qgH-PIZjDcSCOuubsEgoMmXIWbBxrItQnZ6YXReG_ZZvd',
+        image: P.c02,
         alt: 'Babylights on dimensional honey brunette hair',
       },
       {
@@ -206,7 +207,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
         stylist: 'Por Lucía G.',
         price: '$ 1.800',
         duration: '1.5h',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBoDduYN7_ncXHM5mgdxn5YE6Kk4xI5OGoKLyVxYAwWEya4XM51_k4iVOypIjfYfSi-f0Utr6f1AYWjz3SEfFsmXnSPsHEpeQzSF-zzRKdt7q0-FS5s7vGEHxMRsK3zjb2eVsQLTgP3Sx8uDoTuxiHXCEH6rI6QOMaEWcGMQdgVh_vDOOogjECUja4UkahCKsxLsQlr8QhpC_5Xfq9_rztwpQokwfP-NSDnbvFTKlRxueJ15aveX7S6',
+        image: P.c04,
         alt: 'Mirror shine gloss hair treatment on brunette bob',
       },
       {
@@ -216,7 +217,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
         stylist: 'Por Valentino R.',
         price: '$ 1.600',
         duration: '1h',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBVPX2bVNBEQ6MpS08iAD9XuCtaLINN4UVeNaQd0vEPHEjG-dKbA7A1rWDTWdS8Ol8aljCimPknkJ-2uXeodX1ukC4V9LfmFYPG5ICucdcpyDis3AXVo7TNxj9qH_Ama1zqSzK1FUZB-3uh6yq1cIi0dYSt0I7vU82x7knaFWaQaXSc_obp6eICRQO9s5WwtcxFPyirBrs3rmTMYvBH6V_9XYwJ2pgJpwLCRHK4DA17hr5-HtpeGYfK',
+        image: P.c03,
         alt: 'French shag haircut with curtain bangs on wavy brunette hair',
       },
     ],
@@ -224,12 +225,12 @@ export const SALONS_DATA: Record<string, SalonData> = {
       {
         id: 'proof-1',
         clientName: 'Camila R.',
-        clientAvatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBXCvv_QO3hx6-0HZtceE8-GploMn9RkyAul3CrI8kIyWELsGAqSJbVSpIMhe0C8x5DmDg9lq1mwq43nyJaRWSlAzy6S1XztHCySGcnKEP-v3giGvWQQG3CGb4ud8cYT7YoRnkQokVyNVf055YKAPpz_DAohFlIZf5VigWAj_5jrAmnMBgs9llCzWf6OQi49cReA8jT3_eqSjKB6wtw0Faog4PkssZylohPWLw678q_AUlYTD-pT3zL',
+        clientAvatar: monogram("Camila R."),
         userId: 'camila-rossi',
         treatment: 'Balayage Vainilla',
         timeframe: 'Hace 3 semanas',
         rating: 5.0,
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDzpUDFobE4UUfNQ0tum3bik6iZZEhIpoiyb9IX6zrfDDSxpMTCqQoyc3ZoJA6hMiT-cY7meZTy6dsn3gzZROyHeLOkpSHAxMlo0OTKmqGkTpbKoscfRWZhMBKoMm282-ZQwWlDK-aq6eJjaA4ZdcOEcjNwVsrQv2ncyXyY9fAju6NNer5TAK_CwBd-H0b4TuIlzeG-GNDGzyrtBLzsTW0I4OWBea42DC2qOHx_la3zMKHEVyxSBPev',
+        image: P.u01,
         caption: 'Pelo tras 3 semanas de lavado',
         quote: 'Tenía miedo de que se me resecara, pero Valentino usó Olaplex y el color quedó intacto aún después de un mes de piscina. 100% recomendado! ✨',
         likes: 38,
@@ -238,12 +239,12 @@ export const SALONS_DATA: Record<string, SalonData> = {
       {
         id: 'proof-2',
         clientName: 'Lucía M.',
-        clientAvatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBi2g2MNp2sj8twYnhzNEyj8TUUGPA7KijmT7VCpn8enYWdkqZXgW59oN4WQm-rUGb3SFpUSuIq3glTHDwxR2CkrYoKluy-oYg4VYBzIl5f8beehFAeymkaE8AAjXW_gj8TBQes0ZtPa0y96HO3HMHaROhafRmHUoANDmSCT5emlAXhD_CbMRZnmf5ZkXJ40QJNAnQbGH-AbqwFU6-abWSAUzP2HSIw3XBhtxzuv23xem-JMk5gCyUr',
+        clientAvatar: monogram("Lucía M."),
         userId: 'lucia-morales',
         treatment: 'Gloss Nutritivo',
         timeframe: 'Al salir del salón',
         rating: 5.0,
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAeqczQwYq1oXXNzm7Tc81K9kPIPD8TE2cNZSkbK0qRCroMxUMXl_xKN7Z11WgyPlXc6s7vpY-fhOOZ8hnGR5bMFngB5fQTUIWDmC9g45Icl01sE1gVJo5ggHet8RQWZFi40LU6yL_JcJnAx7fRA3DYAgNcQwYciev93J4Exp6WFFYkTVRziNGeysL6Mvgf-IMKw9GzERTz6GtDMW8LWPXlYdfWEyzabhAJhpUu8RMXXC9tpNi2WmnC',
+        image: P.u02,
         caption: 'Salida inmediata del local',
         quote: 'El brillo que te deja el Gloss es irreal. Cero frizz y el trato de las chicas con el café de especialidad fue un 10 total ☕️💖.',
         likes: 24,
@@ -254,14 +255,14 @@ export const SALONS_DATA: Record<string, SalonData> = {
       {
         id: 'rev-1',
         author: 'Valentina P.',
-        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCYR-29ucGWxbBILhUiETLOViX90ZBsl0UTr3SFw9V_Xun1qVITLv_StjeIwPgO_sPvoMzuYDUnXCXHfDzSd3XDMjedS_q-sZMBXsUIxj_va7LcLTOLkWakAkrjkdHi6lXCJd4icRm2vWaUfRwKJB8peDnhyIoEG1KbBs3nJxUlhyzHIYrdH_MnOCs-_kFBFXSL3nZDnQZ-f0Et9iSdPonQmEH2PP_i5W4kc4K5Ew76OCL5JirdsyMM',
+        avatar: monogram("Valentina P."),
         userId: 'valentina-p',
         verified: true,
         rating: 5,
         date: 'Hace 4 días',
         comment: 'La atención es exquisita desde que entrás. Valentino me asesoró exactamente según el subtono de mi piel para el balayage. El lugar además es hermoso y súper calmo.',
         photos: [
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuBI3CP4xzSE6ZTeJL0K0DiegqA0ARd01W9fPzF3qrLBde6oMVO1YtZFUDrG2QNG-C2r_DamxirN_KtT8VQlAqMSggkYiuxTVJzxCn86iUXYTUQ06-MactGAwqkGz7W0bfV5dDLbd7CGp3WtuZq7ls3gcnB36SEY5h86tvdeh2nnaKhR801oCQAgtC9tBpRq9wrcMdgEsJdPxwACh7nDgwB2HR4iwDmQhHIdJLaksAq-jHLJ-dqoF10e',
+          P.u02,
         ],
       },
     ],
@@ -272,8 +273,8 @@ export const SALONS_DATA: Record<string, SalonData> = {
     id: 'studio-velvet-nails',
     name: 'Studio Velvet Nails',
     initials: 'SV',
-    logo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD_EhQ9EJMYQbKRKRrMUurfWJwFp4L1MeNrJB8LXA3wbVZEqdci5l71RdRPl07tTTuxH0fk6PqC8zXp6aaBY5As6cLS--4fzp58PbqP_4Cpe6qE0kb-MKjzxkDp3onqCpQig-68UJW00wZ1pxQhIRhyAEB4DeQAxPjiEQpUSUij7LhWRIgIBV-XdJuo0bBmxvoIgi-nL9SPsIdLhKjunqSwlQ349gpezxuuOhp2UtKHOKJaB7SAs9CF',
-    coverImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBXdZH-qVy2g9rbIluLObENJzEYajcy9fEWGdF71SmROUkEbC268aSk0M7bKR7CSRCyFOrRuu1U7h0pHswx_212nHihTf5BZuGSlMsTHLTG8W3n5Ed6lnu0yFEKMVZ9qpbaCWUrg_FKfS2iZsjNVefbdK2zN9ZO3rmLa8YwSvQ4kqyGk2BxRcWLlrXReGVLQWkhi6ZaHe7Y9EoilaGvhL29vrAI9Ni3P7gQbV_M-qN_KjggBr0Upnr6',
+    logo: monogram("Studio Velvet Nails"),
+    coverImage: P.c05,
     verified: true,
     rating: 4.9,
     reviewsCount: 128,
@@ -287,7 +288,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
     socialProof: '@camila.rossi y 4 personas que seguís se atienden acá',
     mutualFollowers: [
       {
-        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCnLZdOJ4d0HqO90TM-sedLBIfuuTNuBxZBPSCfMowdohT6oIfLZGRu1_FJynJMvWeXQkQ9nkHRJilk4Tih9vHi6t9YNi9y9r4syFkAIESOZuh0CapB5HXX8PbECrjSkdy2koyptbrb5I0coycW1i-cAU7Rnbry90xiOlavz1ITXTVx-kBXN_lQXnUOaU0rnd5Bzj8ue8gGvYVw3MsvUIOLQH7MGTQnmrTgxjk6xx5RXuJnRvN8mY-h',
+        avatar: monogram("Camila Rossi"),
         name: 'Camila Rossi',
         userId: 'camila-rossi',
       },
@@ -325,7 +326,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
         stylist: 'Por Camila',
         price: '$ 1.450',
         duration: '1.5h',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgOLvEtQCq68fBFgATYYp5_sBkz2XNxFPfRh-xAIvcTnAVWCViysJ7pyPy9k1IY7DCyPCOklMKp0YCugcYSd22tyBa7PQaDP7GjJ6r7Cl4iJKyt60kA6yVtfpSUD9vha9ggMr_dKr5dld0szI8L01Iqzx7YlIqJAxhh_meT_wKZYTTKvl1JFgcpXTLgdswP8DJahj6xtP_FW1a470znp1owjavW4X88OYrfm_wigykdKK6nOfMcChy',
+        image: P.c06,
         alt: 'Cherry nails',
         lookId: 'look-kapping-cherry',
       },
@@ -334,12 +335,12 @@ export const SALONS_DATA: Record<string, SalonData> = {
       {
         id: 'proof-velvet-1',
         clientName: 'Martina G.',
-        clientAvatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBXCvv_QO3hx6-0HZtceE8-GploMn9RkyAul3CrI8kIyWELsGAqSJbVSpIMhe0C8x5DmDg9lq1mwq43nyJaRWSlAzy6S1XztHCySGcnKEP-v3giGvWQQG3CGb4ud8cYT7YoRnkQokVyNVf055YKAPpz_DAohFlIZf5VigWAj_5jrAmnMBgs9llCzWf6OQi49cReA8jT3_eqSjKB6wtw0Faog4PkssZylohPWLw678q_AUlYTD-pT3zL',
+        clientAvatar: monogram("Martina G."),
         userId: 'camila-rossi',
         treatment: 'Kapping Gel Cherry',
         timeframe: 'Hace 5 días',
         rating: 4.9,
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDDF6TleJi1HLPHYLcSGCx3w6D4w8_9QiXW3mdLhRw5P12Ed-lP2fHP5bwmYX9m8TnprSz9UmTr-7C-ySnSlouBRb0T1aN7txqa7pvCXSJRiu60RAUfPid1SWaj8ReaGvjsgNyqxVFM9PoK4DoObVNeX4GMXJvX97-h0mWIIW7TC156kwAAkxsVwNQ7KeZLxiY-9uiOpuqtGAZ2_UdoPdfsVFVek1Lnjb2_Q7qnidJ6jX6u6aLpip7X',
+        image: P.u03,
         caption: 'Uñas impecables después de 3 semanas',
         quote: 'Nunca me duró tanto un esmaltado. Las cutículas siguen súper hidratadas y prolijas.',
         likes: 31,
@@ -357,7 +358,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
         date: 'Hace 2 semanas',
         comment: 'El kapping quedó impecable y duró más de 3 semanas sin saltarse. Muy detallistas con la cutícula rusa.',
         photos: [
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuDUt3w00qyFtaq6pOYb3UL0IyR6GwmD2ZPkMXIPPWoy4I86PwVQCC4yijceqtT-sqcdNLzDWI3yLg7ZrLTxeHAcYd6lQrwvSLClugVSD5jeAeodtIogyeA4TntY4b86MZroau8pnWrRYd1ZNc3xSMM0NUodBfT1BM9Tc-wfbX8UNudLHiayON_uEdN1eTXw3Uolb-jjug3_8n7wOWKoatT_Ne3WwVvWQmO2Ok8mGAKEJvccZD1-nu9F',
+          P.u04,
         ],
       },
     ],
@@ -368,8 +369,8 @@ export const SALONS_DATA: Record<string, SalonData> = {
     id: 'brow-bar-atelier',
     name: 'Brow Bar Atelier',
     initials: 'BB',
-    logo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAewOr4cZSZrNj_KfiIjAC4AunzPqd8RIEvf8VayhWsWIRr8gAHA3BsVxyWR5SOZ9FBDw4dDsFR-pHu7nJn9pdedgNIX6qjQquwv0Zo0j2UU513OeXLnySbztVBw6v86RntmC4q7Og_XKTXIhQUouQNroW841DxRh_sB22bVNrULWzKUJcdsw92Gh-VDw2BOAAi16vpWyE_kVt7svgSdck3F87zF0-tNJeAkXG1S8e14kCrcroQeJqg',
-    coverImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD9RqwrL0MSLebUMSai31l1SW_-iH1iJGcu7_heSg8EgksbIRYGaz7-Y5fLNsGwSiCwoIZ2aio97b1IrqbxnnFpsYw6BE-TBA0wWt64iT5tZiRRVQsU2W3Ivz69YI6tcn6s5peAHgsUAiiSW608KMjysBJc_YtecjkQ3EQjgSQPxgogRitK9zRMZ-TcuQF_NwFn068bhmvuXBlwr36AvtKyZOvAEdu8KmjjPqh4woTNppESiIuhBuiV',
+    logo: monogram("Brow Bar Atelier"),
+    coverImage: P.c14,
     verified: true,
     rating: 4.9,
     reviewsCount: 87,
@@ -406,7 +407,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
         stylist: 'Por Agustina',
         price: '$ 950',
         duration: '1h',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBYQgEN_Xnln6WFAblpi2Zf6mB6JV_xdI83org1QMdtXOgSGmkKodqRBNDW6IJCbw4zC-Xhw9waI4reRqea_Pnk7ek6pPhCk77fFQPuD3NEMT7IbDWUcxlnWP4SY71Cn1IxQRWt4-6WEqM-Re5iS5-Hv8KK2sTvcjOrHK_us_GBAPekbSCwPNYPLI43jvFd6UKPMm6B2GPfe_TBB8DJk83VN8JYrCNJ5LBhALAjCImeN9SsE3ZL_MWs',
+        image: P.c13,
         alt: 'Eyebrow styling',
         lookId: 'look-laminado-cejas',
       },
@@ -420,8 +421,8 @@ export const SALONS_DATA: Record<string, SalonData> = {
     id: 'glow-lashes-boutique',
     name: 'Glow Lashes Boutique',
     initials: 'GL',
-    logo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC7mBfRmbLY40mruTVkJXiDmYuNGpgxP6RZ_j1TGaXTgdXOT1nrk5o1Cm9unL9wGBVYHuq3fLSA9JcIjCkGB9WQJ3xuiX-fitBkAxXPVHiDgrTljIjE--9ldPcxISQVrL6mKb8Hz9rlJ8KE4I8YrjHEinZZ-L-g_HYd9DIY8-nJ06qwx0FxgICcBdA-IpHRsn7mFwl_pqitH6Jr9N9jcPkBrB_BP9C-7xk8jKKmFCMysVjIY02dTjP-',
-    coverImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB7G-aoyhPbW1I8sBf7Z0a9lVck5ho9z072UYq3SrgF5vhrF4NArJauWbuHDQQcy9Hc4DtvhLjhyD8pudiO3MHMxTLd8TK6kigMbLbvaS6ihtWzwcCZEGo2o9DzjmhjK0sPDLQckjQ_W2WaQ-S4yROg1VeTexbYrxRpMKm4wheA41vs0eHyFeERhO9Y5Qj34ga7pdR2N9xRwA_vtQx04H0AbSROtwWmJSFXrSLRfMUK18DvwArlOfIg',
+    logo: monogram("Glow Lashes Boutique"),
+    coverImage: P.c15,
     verified: true,
     rating: 4.8,
     reviewsCount: 215,
@@ -458,7 +459,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
         stylist: 'Por Pía',
         price: '$ 1.200',
         duration: '1h 15m',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB7G-aoyhPbW1I8sBf7Z0a9lVck5ho9z072UYq3SrgF5vhrF4NArJauWbuHDQQcy9Hc4DtvhLjhyD8pudiO3MHMxTLd8TK6kigMbLbvaS6ihtWzwcCZEGo2o9DzjmhjK0sPDLQckjQ_W2WaQ-S4yROg1VeTexbYrxRpMKm4wheA41vs0eHyFeERhO9Y5Qj34ga7pdR2N9xRwA_vtQx04H0AbSROtwWmJSFXrSLRfMUK18DvwArlOfIg',
+        image: P.c15,
         alt: 'Lash lift',
         lookId: 'look-lash-lifting',
       },
@@ -472,8 +473,8 @@ export const SALONS_DATA: Record<string, SalonData> = {
     id: 'camila-v-makeup',
     name: 'Camila V. Makeup Artist',
     initials: 'CV',
-    logo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDSShvjFEDjxKKJRREqszudryyvea6ZxCJRL0DI7Hzw2duFOqTnQJtqn167HPDryvl-7Xcwjm4hbapjW5IScUmH1hXd08vUuNy0AhwCsrsidfKYZLmMPD7FmME48Ir0UCoRrCgLSTZyvTv6eJx9ifOuL4CpsgfhypRLvG-J_XuVjaGh8jp1CaNhLuVSaUcSDuFC5ZoHvn-9p7MeTYXBdYiCiBcKOOSstHNIpEOB6uKhtf_LRpT7wyys',
-    coverImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCG9RvTdY_daRtOP9TGTJRaNQqQI5jJz-w6-Dek_kmngCPOHwQ273_MVqEXlpYwkoSbVALk9_uKwBRVhm5bD-kC8HSfBzUYasekXKvCrXkvV8OeA7I9irrd2wMDCFIOeWaj9LEcw5oMX9T5h-EvBsfvbLznZ0Cy1OM0vLiztSjiGV6ZBALSR093P8eZcPftDnHWbt_WL0pHXxdSqUqqcAR-pXQoq2QsD_449kr3QuQtGZBjwtfRIWNx',
+    logo: monogram("Camila V. Makeup Artist"),
+    coverImage: P.c08,
     verified: true,
     rating: 5.0,
     reviewsCount: 62,
@@ -510,7 +511,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
         stylist: 'Por Camila',
         price: '$ 2.500',
         duration: '1.5h',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDSShvjFEDjxKKJRREqszudryyvea6ZxCJRL0DI7Hzw2duFOqTnQJtqn167HPDryvl-7Xcwjm4hbapjW5IScUmH1hXd08vUuNy0AhwCsrsidfKYZLmMPD7FmME48Ir0UCoRrCgLSTZyvTv6eJx9ifOuL4CpsgfhypRLvG-J_XuVjaGh8jp1CaNhLuVSaUcSDuFC5ZoHvn-9p7MeTYXBdYiCiBcKOOSstHNIpEOB6uKhtf_LRpT7wyys',
+        image: P.u01,
         alt: 'Soft glam makeup',
         lookId: 'look-soft-glam-makeup',
       },
@@ -524,8 +525,8 @@ export const SALONS_DATA: Record<string, SalonData> = {
     id: 'clinica-lumiere-facial',
     name: 'Lumière Medicina Estética & Botox',
     initials: 'LM',
-    logo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCrVocG-HFvOIk8EwLh9YGNuj1IZNSLixooDpM9jQkkPxa4mm8P2hQHiveNuDdrAZmbbQn953SKJXfkBpb_E9I4qQoQww8ehT3GNMVx70oljngvF5GTiIR97c3dZcfvH9ZGo7nj_Hc90CAjGkA_ofyH8M-o502hfJSKXpjj4lzStwDJqJfmmqG-JX6s3w4KM783kwqH16EK9pbx_iFu8uhWVQr-sPWGuVBaRvJtvyLg4QIIlXv4zZ9K',
-    coverImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBbFoPwl81jH6W6dGMcHUrAoO1WUn1NLXWyt4aaOgmhBsWgMQIY208lTFNp9N9rKHr_2CP4QeLcnbjj3qs23RYjd-oqCm9Eaaygv6p_oL1iP5AdMon4d7ozFikEY82AO0LT3-g3G2XF9Y1srmFQrnyzS1kS0ZnG6uArkwccJhGLjanOU5RxWmL8L4RN4DTC6mMJUjtfBGlPgEuVxN3d8GMBYPC6ygMFRlRvzkP75R0P5mP9vf_SPWq6',
+    logo: monogram("Lumière Medicina Estética & Botox"),
+    coverImage: P.c11,
     verified: true,
     rating: 5.0,
     reviewsCount: 184,
@@ -539,7 +540,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
     socialProof: '@sofia.val y 6 personas de tu red se atienden con la Dra. Paula',
     mutualFollowers: [
       {
-        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCGJ6aO5jGquw7pEk55d4dgNCD-WVUBomDisExLWr9XjYq3PtgRTaC28rX0WfNaavy_7ZYSojnOf5Lm5tyhzGw8ZaagiYru_29tpwx4eBO-B13Ic6UBOz16_t2wKhJHu00mDPkYYtAm1YdRCKqT45ghb6W5-7gsV05a3IGI97tHt2cm2cHZQu26EqCJrPsBqUS_rOw-WKL9hPcdlKSJU-dCzmFfOhVN4vTlEjZIb2a6scy7OfgCacNk',
+        avatar: monogram("Sofía Val"),
         name: 'Sofía Val',
         userId: 'sofia-val',
       },
@@ -578,7 +579,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
         stylist: 'Dra. Paula M.',
         price: '$ 18.500',
         duration: '45m',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBbFoPwl81jH6W6dGMcHUrAoO1WUn1NLXWyt4aaOgmhBsWgMQIY208lTFNp9N9rKHr_2CP4QeLcnbjj3qs23RYjd-oqCm9Eaaygv6p_oL1iP5AdMon4d7ozFikEY82AO0LT3-g3G2XF9Y1srmFQrnyzS1kS0ZnG6uArkwccJhGLjanOU5RxWmL8L4RN4DTC6mMJUjtfBGlPgEuVxN3d8GMBYPC6ygMFRlRvzkP75R0P5mP9vf_SPWq6',
+        image: P.c10,
         alt: 'Baby botox forehead result',
         lookId: 'look-baby-botox',
       },
@@ -592,8 +593,8 @@ export const SALONS_DATA: Record<string, SalonData> = {
     id: 'atelier-dermo-facial',
     name: 'Dermo Atelier Facial & Glow',
     initials: 'DA',
-    logo: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA3qGIiZcmoFT7wYibrMoDjp3SzdFbgG4jttu46Xhv9kz34Ho7COJcEBKoMlOwQx9RaVhSNl2Y2eVRcfGfu-6kyMKnGazKrJqpND8dTnPeOGZuNNHuLIychiO5acrciEgCZ_zjv--ddBEGREu_PyQW7fVxEf_QFNDo49UzOzIpqW-CLwC0rnXt367ogZfJydnArWUb5oAXnNWBO5y3BiNEJz-oXC6k06d8sVCO_V7zWnpq9obZncP3f',
-    coverImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCG9RvTdY_daRtOP9TGTJRaNQqQI5jJz-w6-Dek_kmngCPOHwQ273_MVqEXlpYwkoSbVALk9_uKwBRVhm5bD-kC8HSfBzUYasekXKvCrXkvV8OeA7I9irrd2wMDCFIOeWaj9LEcw5oMX9T5h-EvBsfvbLznZ0Cy1OM0vLiztSjiGV6ZBALSR093P8eZcPftDnHWbt_WL0pHXxdSqUqqcAR-pXQoq2QsD_449kr3QuQtGZBjwtfRIWNx',
+    logo: monogram("Dermo Atelier Facial & Glow"),
+    coverImage: P.c09,
     verified: true,
     rating: 4.9,
     reviewsCount: 116,
@@ -661,17 +662,17 @@ export const LOOKS_DATA: Look[] = [
     highDemand: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgOLvEtQCq68fBFgATYYp5_sBkz2XNxFPfRh-xAIvcTnAVWCViysJ7pyPy9k1IY7DCyPCOklMKp0YCugcYSd22tyBa7PQaDP7GjJ6r7Cl4iJKyt60kA6yVtfpSUD9vha9ggMr_dKr5dld0szI8L01Iqzx7YlIqJAxhh_meT_wKZYTTKvl1JFgcpXTLgdswP8DJahj6xtP_FW1a470znp1owjavW4X88OYrfm_wigykdKK6nOfMcChy',
+        url: P.c06,
         caption: 'Luz Natural & Acabado Cherry',
         alt: 'High detail macro photography of modern almond nails with kapping gel and minimalist deep cherry red french reverse nail art',
       },
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDDF6TleJi1HLPHYLcSGCx3w6D4w8_9QiXW3mdLhRw5P12Ed-lP2fHP5bwmYX9m8TnprSz9UmTr-7C-ySnSlouBRb0T1aN7txqa7pvCXSJRiu60RAUfPid1SWaj8ReaGvjsgNyqxVFM9PoK4DoObVNeX4GMXJvX97-h0mWIIW7TC156kwAAkxsVwNQ7KeZLxiY-9uiOpuqtGAZ2_UdoPdfsVFVek1Lnjb2_Q7qnidJ6jX6u6aLpip7X',
+        url: P.c05,
         caption: 'Detalle de Cutícula Rusa',
         alt: 'Close up photography of perfectly manicured glossy deep cherry red gel nails with delicate minimalist gold line details',
       },
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDUt3w00qyFtaq6pOYb3UL0IyR6GwmD2ZPkMXIPPWoy4I86PwVQCC4yijceqtT-sqcdNLzDWI3yLg7ZrLTxeHAcYd6lQrwvSLClugVSD5jeAeodtIogyeA4TntY4b86MZroau8pnWrRYd1ZNc3xSMM0NUodBfT1BM9Tc-wfbX8UNudLHiayON_uEdN1eTXw3Uolb-jjug3_8n7wOWKoatT_Ne3WwVvWQmO2Ok8mGAKEJvccZD1-nu9F',
+        url: P.c07,
         caption: 'Resultado en Clienta',
         alt: 'Freshly done cherry wine colored gel nails holding a matcha latte',
       },
@@ -684,14 +685,14 @@ export const LOOKS_DATA: Look[] = [
     clientReviews: [
       {
         clientName: 'Martina G.',
-        clientAvatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBXCvv_QO3hx6-0HZtceE8-GploMn9RkyAul3CrI8kIyWELsGAqSJbVSpIMhe0C8x5DmDg9lq1mwq43nyJaRWSlAzy6S1XztHCySGcnKEP-v3giGvWQQG3CGb4ud8cYT7YoRnkQokVyNVf055YKAPpz_DAohFlIZf5VigWAj_5jrAmnMBgs9llCzWf6OQi49cReA8jT3_eqSjKB6wtw0Faog4PkssZylohPWLw678q_AUlYTD-pT3zL',
+        clientAvatar: monogram("Martina G."),
         userId: 'camila-rossi',
         verified: true,
         date: 'Hace 2 días',
         rating: 5,
         comment: 'Me duraron 4 semanas perfectas sin levantarse ni una esquina. El color cherry con el kapping queda divino.',
         photos: [
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuAgOLvEtQCq68fBFgATYYp5_sBkz2XNxFPfRh-xAIvcTnAVWCViysJ7pyPy9k1IY7DCyPCOklMKp0YCugcYSd22tyBa7PQaDP7GjJ6r7Cl4iJKyt60kA6yVtfpSUD9vha9ggMr_dKr5dld0szI8L01Iqzx7YlIqJAxhh_meT_wKZYTTKvl1JFgcpXTLgdswP8DJahj6xtP_FW1a470znp1owjavW4X88OYrfm_wigykdKK6nOfMcChy',
+          P.u03,
         ],
         highlightTag: 'Duración impecable',
       },
@@ -706,7 +707,7 @@ export const LOOKS_DATA: Look[] = [
         rating: 5.0,
         reviewsCount: 94,
         tag: 'Color de Autor',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAG42lK-2NWM9lb9tryiXjrTqpL8rnhjxv6SUy0Lbo-QKLKkrbry3sEj4vAEx65OAkXd97r4H4pQQy-fRz3a9Gfm_brxjgeOknno6_t9iSmiA_fqBi18Pn1lZRQsd-bcEu6ygzcU_VLyKkhx6GveqQULCLj72rJpKtiGFxr7CNoUl-oBuwW1lCUofN6_FgrpDhclR5JDVdbmpp0T87XysIHdpt70LPHPmQmmMX-ejh2i7wvbQQ7BLn9',
+        image: P.c01,
       },
       {
         id: 'look-laminado-cejas',
@@ -717,7 +718,7 @@ export const LOOKS_DATA: Look[] = [
         rating: 4.9,
         reviewsCount: 87,
         tag: 'Cejas',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBYQgEN_Xnln6WFAblpi2Zf6mB6JV_xdI83org1QMdtXOgSGmkKodqRBNDW6IJCbw4zC-Xhw9waI4reRqea_Pnk7ek6pPhCk77fFQPuD3NEMT7IbDWUcxlnWP4SY71Cn1IxQRWt4-6WEqM-Re5iS5-Hv8KK2sTvcjOrHK_us_GBAPekbSCwPNYPLI43jvFd6UKPMm6B2GPfe_TBB8DJk83VN8JYrCNJ5LBhALAjCImeN9SsE3ZL_MWs',
+        image: P.c14,
       },
     ],
   },
@@ -742,17 +743,17 @@ export const LOOKS_DATA: Look[] = [
     highDemand: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBpDIOjbxiSKax5ChpWCpXrt4uHVQM6GKneX8OwrBhscqURmkytGzYcswWgww2TO4nxpHbgGfaOtxcXg-S0RRj9JkNiYF1yVFOIzeql6aHauct50UPH4PKwcHKv1HeOqgH1kIKQcfTyYrutgNoR12POERfb8r_FQnpBO5MCxaWsbJvhehhtWDtWJkd2EIIGzBHB7qw6ivazyOXcIuPgvvX0YjdLfDpdoy2q1N6XM-CAHAbBh1Gefn6A',
+        url: P.c01,
         caption: 'Luz Natural & Acabado',
         alt: 'Close up photography of radiant caramel blonde balayage hair with glossy waves reflecting soft golden daylight',
       },
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD3LzqslY4AmUa7DMi7CJEkYCY5koxYpcw_IwphPvkxxhPXn1xbnRtbkZ0d2xaVS-xT6dJVOxuGEQM50j6tTx58vnK5pU265yzPpG2qwffctKwMEQzEKp0Z69ildDobW_ss-R37H-MJrJzpPCS9ZpPM0-NRrlAew2CjL_zLESIQOcOBThuC17R9bW5kUw8G1g5aXhijI7u_xPrEBlk1RNIUXwGUkEzRbI_doO_fXSnArse3E4kqRtgG',
+        url: P.c02,
         caption: 'Transformación Antes & Después',
         alt: 'Side-by-side comparison transformation of hair with luminous caramel highlights',
       },
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCZNijDditX2pG4xkKqmmvAB9Blr3cXgFIGdYuO7VvlzIOXw55t039NV6LibThuR20hTEnGqRuLojmpb9Qzi1xFGbuHTArHoKJC7Q-y3-YYecF7jfSGew5QSDeHAvjOFu3OI5V4Jpixk8U84MZB6odiszu0J4yH9cXx_HTVupKy6iRHfu8z4Q7EzS3LZe_xiwwltgCUjiNuNXx7ct67--ROK2gAH8BF_dI1WK9dUCmaTEghZwWqlVzo',
+        url: P.c04,
         caption: 'Transición de Raíz & Detalle Gloss',
         alt: 'Master colorist fingers combing through silky layered honey blonde hair',
       },
@@ -765,28 +766,28 @@ export const LOOKS_DATA: Look[] = [
     clientReviews: [
       {
         clientName: 'Camila R.',
-        clientAvatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDPRVPYFfWfsHml6b-gymJjD45Zw6SnBNy4gYVkGvVnewSfg4V3TOLgRrHvw44P3ISZNZo5vDpWHWTk0JWeSG5NX5-DRIbsEaJfPI38R8bDces_0_csh3kb3A1dEVrJjRp0EYky7lUnAmZzK61ctmzztNLHBUiitCDIlggju_-CeNenIVEgY-7MJQGh9bgNiexdmX3dupTUodc9GFW_6yNjuBFdwgTQeQ0epfMO_8LUcIOMuSJlabRn',
+        clientAvatar: monogram("Camila R."),
         userId: 'camila-rossi',
         verified: true,
         date: 'Hace 3 días',
         rating: 5,
         comment: 'Sofía es una genia total. Empezó puntual a las 15:30 y cuidó cada hebra con Olaplex. El color caramelo me duró intacto sin ponerse naranja. ¡Vale cada peso!',
         photos: [
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuAr9e3NUEyjIimALfLvLc35kg8wSr1erLyy_GzoE2A5icTypHnNIqOdFd-X8j_j9f-I6tuT0x01pQ_GSfi9dhLE-8jIszDq1SOiHXteAP1UIwYAZ83n2uk-F8y4S2deCQl24IbAk5dfgVFjQaBXjSzVAZq8geQviKug-4e_7EQ_Ge75r6s1oa2TOk0V5peHrCc_rSCYQ3EvvEpQQIBxSUdHkodw3dKUVwb5zuhGh0tvhkf_xVJ58FFA',
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuDWe9VB2MmsMKCwV7wqwbaiYt_D3HxzLQ_3mpw-h4tyzqxxftPu4JzV5V2uaxS4ZaSYUxMjozgRSbxZzMZ4X80bxJyrcsHU5RJ3hqCoVZsksEvW0s6FtD7u5dWdk6siL0_mDImfLzs8WHaJHJGYa-BWV5JzjEx0rn38ASQPPMmJQd9usSuRdvjoxnisqdeY33o78MDeA3AM-zR4zDj_tD9Uj-qk_d49Rx6CyKKlXrzwWLTHlZ3SgDO',
+          P.u01,
+          P.u02,
         ],
         highlightTag: 'Técnica impecable',
       },
       {
         clientName: 'Lucía Morales',
-        clientAvatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAOjKmtUgA1kr4NSjkPKTr2JDWXKkefKxcKnnEMZYwvoooNqaQ9D8J5MYDbV4PDgb8VOw1wZQbspjs95a22H0VAs4QvPA8vS7oSNUEvh6uPwZrQuaysS4Zt_Z5ZPtJnrS9jjLL7A9BizEPfoFL0tFwPmjGSApYVv2j4IM_sVMNrhBfXPZmZiurzGv7GLsclBYl7W5PGRK_-hhieQWfcYIvBDuC0SQT9aXfrQOyl6_tmLEDGcQbxwgWu',
+        clientAvatar: monogram("Lucía Morales"),
         userId: 'lucia-morales',
         verified: true,
         date: 'Hace 1 semana',
         rating: 5,
         comment: 'El café de cortesía, la música chill y el trato cálido hicieron que las 3 horas y media volaran. Mi pelo quedó más suave que antes de teñirme.',
         photos: [
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuAhs95Rdkhad9ZNXKgzaxB0tpMN4oVDxV0yLGJRwyJjSVA9GWMoWnup5KX6yAi5sKvan_OoV92MD0N5bRUrcwJ5DoW9U4soeWvNC001sU7gY-0i-_N0O3w9kUsCr9nT1hUzUmmpmQcmvT__11ceL_gL7VqcCrV8TuA-3D4E-5POLRH-fjSLy3Ws5ZpPXDUsUssSyVdonxp9f-Iho7hZy0qO4F3ET43MWEi-PVwaw5xB0M2E9Csg5lq8',
+          P.u02,
         ],
         highlightTag: 'Nutrición Gloss',
       },
@@ -801,7 +802,7 @@ export const LOOKS_DATA: Look[] = [
         rating: 4.9,
         reviewsCount: 128,
         tag: 'Uñas Cherry',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgOLvEtQCq68fBFgATYYp5_sBkz2XNxFPfRh-xAIvcTnAVWCViysJ7pyPy9k1IY7DCyPCOklMKp0YCugcYSd22tyBa7PQaDP7GjJ6r7Cl4iJKyt60kA6yVtfpSUD9vha9ggMr_dKr5dld0szI8L01Iqzx7YlIqJAxhh_meT_wKZYTTKvl1JFgcpXTLgdswP8DJahj6xtP_FW1a470znp1owjavW4X88OYrfm_wigykdKK6nOfMcChy',
+        image: P.c06,
       },
       {
         id: 'look-hazelnut-melt',
@@ -812,7 +813,7 @@ export const LOOKS_DATA: Look[] = [
         rating: 4.8,
         reviewsCount: 89,
         tag: 'Avellana Gloss',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB4XsXoemzG35aokoZsAnfqFbtrVhZ7Om9aLt6_xfppJxpBAKpvOa8cKU6z0sHPJD0kVtbVEEy8v-9mzkeJOsZUclf-VNHI9wmX7zttBg2XEA7711uziJCPBD_1xWtBMbGiadIMXFmV3m0S9lHgO6-V4cx56bWihenY-lxRaaTZvweV914AY-G2IBmZOkBVokUlXcVf494KE8MSSn7A_1YerHTygs_9ZoXGySC8Oj6w0ipsMp9xvbTq',
+        image: P.c01,
       },
       {
         id: 'look-babylights-ice',
@@ -823,7 +824,7 @@ export const LOOKS_DATA: Look[] = [
         rating: 4.9,
         reviewsCount: 210,
         tag: 'Champagne Cold',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAJMfeXkEozHeJXo-yb078u_nIE_1Ye5ecyu4DJqfmVf4j4qP8xVCdarkCmOA8ROJCcjAekH5_0WVAE46uxqmAu_pXTSp7hkAEqxkLXfw-25J2Ove4umxX1b9o82Z7tJIZb_pfonHgAqB1NhKLfi-pnArIZ_ZxVyYHESHkkUrBriseOfz_4hf-mxCFaELPR2SoBYkb_y5gyBV1VRlrpSUK6gtB3yYw1G9x0rY6cmw0gMZEKKpVefLXH',
+        image: P.c01,
       },
     ],
   },
@@ -847,7 +848,7 @@ export const LOOKS_DATA: Look[] = [
     verified: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB7G-aoyhPbW1I8sBf7Z0a9lVck5ho9z072UYq3SrgF5vhrF4NArJauWbuHDQQcy9Hc4DtvhLjhyD8pudiO3MHMxTLd8TK6kigMbLbvaS6ihtWzwcCZEGo2o9DzjmhjK0sPDLQckjQ_W2WaQ-S4yROg1VeTexbYrxRpMKm4wheA41vs0eHyFeERhO9Y5Qj34ga7pdR2N9xRwA_vtQx04H0AbSROtwWmJSFXrSLRfMUK18DvwArlOfIg',
+        url: P.c15,
         caption: 'Efecto Rímel Natural',
         alt: 'Stunning lash lift and tint result on open sparkling hazel eyes',
       },
@@ -868,7 +869,7 @@ export const LOOKS_DATA: Look[] = [
         rating: 4.9,
         reviewsCount: 87,
         tag: 'Cejas',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBYQgEN_Xnln6WFAblpi2Zf6mB6JV_xdI83org1QMdtXOgSGmkKodqRBNDW6IJCbw4zC-Xhw9waI4reRqea_Pnk7ek6pPhCk77fFQPuD3NEMT7IbDWUcxlnWP4SY71Cn1IxQRWt4-6WEqM-Re5iS5-Hv8KK2sTvcjOrHK_us_GBAPekbSCwPNYPLI43jvFd6UKPMm6B2GPfe_TBB8DJk83VN8JYrCNJ5LBhALAjCImeN9SsE3ZL_MWs',
+        image: P.c14,
       },
     ],
   },
@@ -892,12 +893,12 @@ export const LOOKS_DATA: Look[] = [
     verified: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBYQgEN_Xnln6WFAblpi2Zf6mB6JV_xdI83org1QMdtXOgSGmkKodqRBNDW6IJCbw4zC-Xhw9waI4reRqea_Pnk7ek6pPhCk77fFQPuD3NEMT7IbDWUcxlnWP4SY71Cn1IxQRWt4-6WEqM-Re5iS5-Hv8KK2sTvcjOrHK_us_GBAPekbSCwPNYPLI43jvFd6UKPMm6B2GPfe_TBB8DJk83VN8JYrCNJ5LBhALAjCImeN9SsE3ZL_MWs',
+        url: P.c14,
         caption: 'Laminado Orgánico & Brillo',
         alt: 'Macro portrait of perfectly laminated natural feathered eyebrows, defined arch',
       },
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAwclwZDeT02AdqTMXr5JYvV08zmT8emxCT3h8JJvGpnWG4jIWHbX3ophB78VUsEaP2N6Fu0tXxOAkw3vwJznYWxqnxPdS6fP31_onUevmfwEih9-aL5lIlQQKrMnNYYy54esEAvKB0ZnGUqjuPWhQ3v7ukmvOCKy98YfR_JkvcfO0inYQFli6ywMIdjNcw1JBEQKeJ3lK1k9l4vJXohziCmuV3kF1PpTCAId7nMuhKrswLXWwFBGeT',
+        url: P.c13,
         caption: 'Perfilado HD con Tinte',
         alt: 'Laminado & Tinte HD on glowing radiant complexion',
       },
@@ -918,7 +919,7 @@ export const LOOKS_DATA: Look[] = [
         rating: 4.8,
         reviewsCount: 215,
         tag: 'Pestañas',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB7G-aoyhPbW1I8sBf7Z0a9lVck5ho9z072UYq3SrgF5vhrF4NArJauWbuHDQQcy9Hc4DtvhLjhyD8pudiO3MHMxTLd8TK6kigMbLbvaS6ihtWzwcCZEGo2o9DzjmhjK0sPDLQckjQ_W2WaQ-S4yROg1VeTexbYrxRpMKm4wheA41vs0eHyFeERhO9Y5Qj34ga7pdR2N9xRwA_vtQx04H0AbSROtwWmJSFXrSLRfMUK18DvwArlOfIg',
+        image: P.c15,
       },
     ],
   },
@@ -942,12 +943,12 @@ export const LOOKS_DATA: Look[] = [
     verified: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDSShvjFEDjxKKJRREqszudryyvea6ZxCJRL0DI7Hzw2duFOqTnQJtqn167HPDryvl-7Xcwjm4hbapjW5IScUmH1hXd08vUuNy0AhwCsrsidfKYZLmMPD7FmME48Ir0UCoRrCgLSTZyvTv6eJx9ifOuL4CpsgfhypRLvG-J_XuVjaGh8jp1CaNhLuVSaUcSDuFC5ZoHvn-9p7MeTYXBdYiCiBcKOOSstHNIpEOB6uKhtf_LRpT7wyys',
+        url: P.u01,
         caption: 'Acabado Dewy Natural',
         alt: 'Professional soft glam makeup portrait, radiant dewy skin, soft nude pink lips with gloss',
       },
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCG9RvTdY_daRtOP9TGTJRaNQqQI5jJz-w6-Dek_kmngCPOHwQ273_MVqEXlpYwkoSbVALk9_uKwBRVhm5bD-kC8HSfBzUYasekXKvCrXkvV8OeA7I9irrd2wMDCFIOeWaj9LEcw5oMX9T5h-EvBsfvbLznZ0Cy1OM0vLiztSjiGV6ZBALSR093P8eZcPftDnHWbt_WL0pHXxdSqUqqcAR-pXQoq2QsD_449kr3QuQtGZBjwtfRIWNx',
+        url: P.c08,
         caption: 'Glowy Glass Skin Detail',
         alt: 'Dewy glowing radiant glass skin beauty look with flushed berry cheeks',
       },
@@ -968,7 +969,7 @@ export const LOOKS_DATA: Look[] = [
         rating: 5.0,
         reviewsCount: 142,
         tag: 'Pelo & Color',
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBpDIOjbxiSKax5ChpWCpXrt4uHVQM6GKneX8OwrBhscqURmkytGzYcswWgww2TO4nxpHbgGfaOtxcXg-S0RRj9JkNiYF1yVFOIzeql6aHauct50UPH4PKwcHKv1HeOqgH1kIKQcfTyYrutgNoR12POERfb8r_FQnpBO5MCxaWsbJvhehhtWDtWJkd2EIIGzBHB7qw6ivazyOXcIuPgvvX0YjdLfDpdoy2q1N6XM-CAHAbBh1Gefn6A',
+        image: P.c01,
       },
     ],
   },
@@ -994,12 +995,12 @@ export const LOOKS_DATA: Look[] = [
     highDemand: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCG9RvTdY_daRtOP9TGTJRaNQqQI5jJz-w6-Dek_kmngCPOHwQ273_MVqEXlpYwkoSbVALk9_uKwBRVhm5bD-kC8HSfBzUYasekXKvCrXkvV8OeA7I9irrd2wMDCFIOeWaj9LEcw5oMX9T5h-EvBsfvbLznZ0Cy1OM0vLiztSjiGV6ZBALSR093P8eZcPftDnHWbt_WL0pHXxdSqUqqcAR-pXQoq2QsD_449kr3QuQtGZBjwtfRIWNx',
+        url: P.c09,
         caption: 'Piel Glass Skin Inmediata',
         alt: 'Close-up glowing radiant dewy porcelain skin without makeup',
       },
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDSShvjFEDjxKKJRREqszudryyvea6ZxCJRL0DI7Hzw2duFOqTnQJtqn167HPDryvl-7Xcwjm4hbapjW5IScUmH1hXd08vUuNy0AhwCsrsidfKYZLmMPD7FmME48Ir0UCoRrCgLSTZyvTv6eJx9ifOuL4CpsgfhypRLvG-J_XuVjaGh8jp1CaNhLuVSaUcSDuFC5ZoHvn-9p7MeTYXBdYiCiBcKOOSstHNIpEOB6uKhtf_LRpT7wyys',
+        url: P.c08,
         caption: 'Textura Sedosa sin Filtros',
         alt: 'Hydrated plump skin detail',
       },
@@ -1034,7 +1035,7 @@ export const LOOKS_DATA: Look[] = [
     highDemand: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBbFoPwl81jH6W6dGMcHUrAoO1WUn1NLXWyt4aaOgmhBsWgMQIY208lTFNp9N9rKHr_2CP4QeLcnbjj3qs23RYjd-oqCm9Eaaygv6p_oL1iP5AdMon4d7ozFikEY82AO0LT3-g3G2XF9Y1srmFQrnyzS1kS0ZnG6uArkwccJhGLjanOU5RxWmL8L4RN4DTC6mMJUjtfBGlPgEuVxN3d8GMBYPC6ygMFRlRvzkP75R0P5mP9vf_SPWq6',
+        url: P.c10,
         caption: 'Frente Despejada y Expresión Intacta',
         alt: 'Natural baby botox forehead result portrait',
       },
@@ -1069,7 +1070,7 @@ export const LOOKS_DATA: Look[] = [
     highDemand: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBXCvv_QO3hx6-0HZtceE8-GploMn9RkyAul3CrI8kIyWELsGAqSJbVSpIMhe0C8x5DmDg9lq1mwq43nyJaRWSlAzy6S1XztHCySGcnKEP-v3giGvWQQG3CGb4ud8cYT7YoRnkQokVyNVf055YKAPpz_DAohFlIZf5VigWAj_5jrAmnMBgs9llCzWf6OQi49cReA8jT3_eqSjKB6wtw0Faog4PkssZylohPWLw678q_AUlYTD-pT3zL',
+        url: P.c11,
         caption: 'Volumen Sutil & Contorno Definido',
         alt: 'Hydrated naturally plump lips hyaluronic acid filler result',
       },
@@ -1103,7 +1104,7 @@ export const LOOKS_DATA: Look[] = [
     verified: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAOjKmtUgA1kr4NSjkPKTr2JDWXKkefKxcKnnEMZYwvoooNqaQ9D8J5MYDbV4PDgb8VOw1wZQbspjs95a22H0VAs4QvPA8vS7oSNUEvh6uPwZrQuaysS4Zt_Z5ZPtJnrS9jjLL7A9BizEPfoFL0tFwPmjGSApYVv2j4IM_sVMNrhBfXPZmZiurzGv7GLsclBYl7W5PGRK_-hhieQWfcYIvBDuC0SQT9aXfrQOyl6_tmLEDGcQbxwgWu',
+        url: P.c12,
         caption: 'Poros Descongestionados & Calma',
         alt: 'Clean refreshed facial skin post treatment',
       },
@@ -1137,7 +1138,7 @@ export const LOOKS_DATA: Look[] = [
     verified: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDUt3w00qyFtaq6pOYb3UL0IyR6GwmD2ZPkMXIPPWoy4I86PwVQCC4yijceqtT-sqcdNLzDWI3yLg7ZrLTxeHAcYd6lQrwvSLClugVSD5jeAeodtIogyeA4TntY4b86MZroau8pnWrRYd1ZNc3xSMM0NUodBfT1BM9Tc-wfbX8UNudLHiayON_uEdN1eTXw3Uolb-jjug3_8n7wOWKoatT_Ne3WwVvWQmO2Ok8mGAKEJvccZD1-nu9F',
+        url: P.c07,
         caption: 'Efecto Perla Iridiscente',
         alt: 'Glazed donut chrome almond nails shine',
       },
@@ -1171,7 +1172,7 @@ export const LOOKS_DATA: Look[] = [
     verified: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBVPX2bVNBEQ6MpS08iAD9XuCtaLINN4UVeNaQd0vEPHEjG-dKbA7A1rWDTWdS8Ol8aljCimPknkJ-2uXeodX1ukC4V9LfmFYPG5ICucdcpyDis3AXVo7TNxj9qH_Ama1zqSzK1FUZB-3uh6yq1cIi0dYSt0I7vU82x7knaFWaQaXSc_obp6eICRQO9s5WwtcxFPyirBrs3rmTMYvBH6V_9XYwJ2pgJpwLCRHK4DA17hr5-HtpeGYfK',
+        url: P.c03,
         caption: 'Largo a la mandíbula con textura liviana',
         alt: 'French bob haircut with curtain fringe',
       },
@@ -1205,7 +1206,7 @@ export const LOOKS_DATA: Look[] = [
     verified: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAwclwZDeT02AdqTMXr5JYvV08zmT8emxCT3h8JJvGpnWG4jIWHbX3ophB78VUsEaP2N6Fu0tXxOAkw3vwJznYWxqnxPdS6fP31_onUevmfwEih9-aL5lIlQQKrMnNYYy54esEAvKB0ZnGUqjuPWhQ3v7ukmvOCKy98YfR_JkvcfO0inYQFli6ywMIdjNcw1JBEQKeJ3lK1k9l4vJXohziCmuV3kF1PpTCAId7nMuhKrswLXWwFBGeT',
+        url: P.c13,
         caption: 'Elevación desde la raíz con tinte negro azabache',
         alt: 'Lash lift close up eye detail',
       },
@@ -1239,7 +1240,7 @@ export const LOOKS_DATA: Look[] = [
     verified: true,
     images: [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAr9e3NUEyjIimALfLvLc35kg8wSr1erLyy_GzoE2A5icTypHnNIqOdFd-X8j_j9f-I6tuT0x01pQ_GSfi9dhLE-8jIszDq1SOiHXteAP1UIwYAZ83n2uk-F8y4S2deCQl24IbAk5dfgVFjQaBXjSzVAZq8geQviKug-4e_7EQ_Ge75r6s1oa2TOk0V5peHrCc_rSCYQ3EvvEpQQIBxSUdHkodw3dKUVwb5zuhGh0tvhkf_xVJ58FFA',
+        url: P.u02,
         caption: 'Labios Borgoña satinados y mejillas bronceadas',
         alt: 'Editorial berry lips makeup look',
       },
@@ -1306,14 +1307,14 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     unread: true,
     salonId: 'brow-bar-atelier',
     lookId: 'look-laminado-cejas',
-    thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC9ozeTOTGKIs7jPZmM-bDa4FMlY6zh2ZKfffKAZqWfpZ4GA9Hj1AXyzUmUJnbYMAC3g2VSoIUHMILbhWUzf5JSerUJ9YvDQOuzELkGWReiVsIQq-vi_XAVCAv0TRZpHOQJkS4b7k28dOvNZx-v8Dm6RFVYbDEbWFlYLBRc04_rGWEnmSl2sYSbo5psctawBz7Ue03uK9IqdEtDIK8gzZhwq6gtsD-mx0LkSwlaub8etnSIcUt7QXEa',
+    thumbnail: P.c13,
     photoReel: [
       {
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMxMgN_l_uusPLC1sA2VmHs4ojoCXamYQujmZ5yhpL6DcMm3KGDRxm_v--MpONLG5RNyd1MUR0AGCxzBlwuhV3ON-IZoq4m22jP8ChGj54S56vjrxwD1Bic7rxMZRfixwWoMOsILbpaIW-zA_-Yu1LogUTykk9ZNBtnk4O0Zc14pEeu6A-sHBw13QlPOS97OaXZAvPoBRHC-NPIWsF8XDf9fnBUGXY7zEHXdHAUwBSt4Gsh2yKAWic',
+        image: P.c14,
         label: 'Laminado HD',
       },
       {
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCJu6L8drVt26YvrMKeNjtRA2PSihjud_Jzx-MTY6KfK80-t_zxnQ_Fwfa-bleHjqib1Mn0E9KbkLnz4e0Si4oGFoMSwcnDERwlQEMR11JjLD2EeR6sau6t7ca6BvcZrJlqJUTzC15IkATQ-vdLelFMtrJSV8ABaJFjGMENHpFiQTUWXwkAu8z7KJ8h1psq4asJ00AD1GbBoLIW3IyXX-GAmcV8BcaehB_URGRsynMy5TVLNOw5-YGz',
+        image: P.c15,
         label: '+3 fotos',
       },
     ],

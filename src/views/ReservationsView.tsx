@@ -1,4 +1,5 @@
 import React from 'react';
+import { SALONS_DATA } from '../data/mockData';
 import { HEADER_CONTAINER, HeaderLogo, NotificationBell } from '../components/HeaderParts';
 import { ActiveScreen } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
@@ -56,7 +57,7 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
                 <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrVocG-HFvOIk8EwLh9YGNuj1IZNSLixooDpM9jQkkPxa4mm8P2hQHiveNuDdrAZmbbQn953SKJXfkBpb_E9I4qQoQww8ehT3GNMVx70oljngvF5GTiIR97c3dZcfvH9ZGo7nj_Hc90CAjGkA_ofyH8M-o502hfJSKXpjj4lzStwDJqJfmmqG-JX6s3w4KM783kwqH16EK9pbx_iFu8uhWVQr-sPWGuVBaRvJtvyLg4QIIlXv4zZ9K"
+                  src={SALONS_DATA['maison-hair-co'].logo}
                   alt="Maison Hair Co"
                   className="w-12 h-12 rounded-full object-cover border-2 border-white/30"
                 />
