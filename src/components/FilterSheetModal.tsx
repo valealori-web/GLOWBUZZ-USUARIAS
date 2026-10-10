@@ -44,7 +44,7 @@ export const FilterSheetModal: React.FC<FilterSheetModalProps> = ({
       maxDistance: 'Todo Montevideo',
       availability: 'Cualquiera',
       minRating: 4.8,
-      maxPrice: 5000,
+      maxPrice: 30000,
     };
     setFilters(resetValues);
     onApplyFilters(resetValues);

@@ -474,7 +474,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
     name: 'Camila V. Makeup Artist',
     initials: 'CV',
     logo: monogram("Camila V. Makeup Artist"),
-    coverImage: P.c08,
+    coverImage: P.m01,
     verified: true,
     rating: 5.0,
     reviewsCount: 62,
@@ -511,7 +511,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
         stylist: 'Por Camila',
         price: '$ 2.500',
         duration: '1.5h',
-        image: P.u01,
+        image: P.m02,
         alt: 'Soft glam makeup',
         lookId: 'look-soft-glam-makeup',
       },
@@ -640,7 +640,7 @@ export const SALONS_DATA: Record<string, SalonData> = {
   },
 };
 
-export const LOOKS_DATA: Look[] = [
+const BASE_LOOKS: Look[] = [
   {
     id: 'look-kapping-cherry',
     title: 'Kapping Gel + Nail Art Minimalista Cherry',
@@ -943,13 +943,13 @@ export const LOOKS_DATA: Look[] = [
     verified: true,
     images: [
       {
-        url: P.u01,
+        url: P.m02,
         caption: 'Acabado Dewy Natural',
         alt: 'Professional soft glam makeup portrait, radiant dewy skin, soft nude pink lips with gloss',
       },
       {
-        url: P.c08,
-        caption: 'Glowy Glass Skin Detail',
+        url: P.m01,
+        caption: 'Maquillaje natural con rubor terracota',
         alt: 'Dewy glowing radiant glass skin beauty look with flushed berry cheeks',
       },
     ],
@@ -1039,6 +1039,11 @@ export const LOOKS_DATA: Look[] = [
         caption: 'Frente Despejada y Expresión Intacta',
         alt: 'Natural baby botox forehead result portrait',
       },
+      {
+        url: P.c11,
+        caption: 'Antes & después: frente suavizada',
+        alt: 'Before and after comparison of forehead lines softened with preventive botox',
+      },
     ],
     description: 'Microaplicaciones de toxina botulínica en puntos clave para relajar el tercio superior sin congelar la mirada ni cambiar los rasgos.',
     specs: {
@@ -1070,7 +1075,7 @@ export const LOOKS_DATA: Look[] = [
     highDemand: true,
     images: [
       {
-        url: P.c11,
+        url: P.l01,
         caption: 'Volumen Sutil & Contorno Definido',
         alt: 'Hydrated naturally plump lips hyaluronic acid filler result',
       },
@@ -1240,8 +1245,8 @@ export const LOOKS_DATA: Look[] = [
     verified: true,
     images: [
       {
-        url: P.u02,
-        caption: 'Labios Borgoña satinados y mejillas bronceadas',
+        url: P.m03,
+        caption: 'Ojos ahumados, bronceado suave y labios satinados',
         alt: 'Editorial berry lips makeup look',
       },
     ],
@@ -1254,6 +1259,61 @@ export const LOOKS_DATA: Look[] = [
     similarLooks: [],
   },
 ];
+
+// Variantes de pelo con fotos reales de usuarias (misma base que el balayage de Maison Hair Co.)
+const balayageBase = BASE_LOOKS.find((l) => l.id === 'look-balayage-vainilla')!;
+const hairVariants: Look[] = [
+  {
+    ...balayageBase,
+    id: 'look-balayage-miel-ondas',
+    title: 'Balayage Miel Natural + Ondas Suaves',
+    categoryLabel: 'Coloración de Autor',
+    aspectRatio: 'tall',
+    price: 'Desde $ 3.600',
+    priceNumeric: 3600,
+    duration: '3h de sesión',
+    rating: 4.9,
+    reviewsCount: 61,
+    savedCount: '820',
+    highDemand: false,
+    images: [
+      {
+        url: P.u01,
+        caption: 'Resultado natural a las 2 semanas',
+        alt: 'Long honey balayage hair with soft natural waves',
+      },
+    ],
+    description:
+      'Reflejos miel colocados a mano alzada para un efecto de rubio natural quemado por el sol, con ondas suaves de salida.',
+    clientReviews: [],
+  },
+  {
+    ...balayageBase,
+    id: 'look-balayage-chocolate-caramelo',
+    title: 'Balayage Chocolate & Caramelo Largo',
+    categoryLabel: 'Coloración de Autor',
+    aspectRatio: 'portrait',
+    price: 'Desde $ 3.800',
+    priceNumeric: 3800,
+    duration: '3h 15m de sesión',
+    rating: 4.9,
+    reviewsCount: 48,
+    savedCount: '640',
+    highDemand: false,
+    images: [
+      {
+        url: P.u02,
+        caption: 'Transición suave en melena larga',
+        alt: 'Long brunette hair with soft caramel balayage highlights',
+      },
+    ],
+    description:
+      'Base chocolate con mechas caramelo en degradé, pensado para melenas largas que quieren luminosidad con bajo mantenimiento.',
+    clientReviews: [],
+  },
+];
+
+export const LOOKS_DATA: Look[] = [...BASE_LOOKS, ...hairVariants];
 
 export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
   {

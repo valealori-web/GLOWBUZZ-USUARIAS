@@ -77,7 +77,7 @@ export default function App() {
     maxDistance: 'Todo Montevideo',
     availability: 'Cualquiera',
     minRating: 4.8,
-    maxPrice: 5000,
+    maxPrice: 30000,
   });
 
   // Onboarding / Interests Modal State
