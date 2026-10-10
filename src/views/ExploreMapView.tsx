@@ -267,10 +267,10 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                     setSearchQuery('');
                     onShowToast('Mostrando todos los salones de Montevideo');
                   }}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0 transition-all ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
                     activeQuickFilter === 'all' && activeNeighborhood === 'Todos' && !searchQuery
-                      ? 'bg-[#B82E5F] text-white shadow-sm'
-                      : 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
+                      ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
+                      : 'bg-white text-[#444444] hover:text-[#111111] hover:bg-[#F7F7F7] border border-[#E5E5E5]/80'
                   }`}
                 >
                   Todos ({salons.length})
@@ -292,10 +292,10 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                             : `Filtrando por ${neigh}`
                         );
                       }}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0 transition-all ${
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
                         isActive
-                          ? 'bg-[#B82E5F] text-white shadow-sm'
-                          : 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
+                          ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
+                          : 'bg-white text-[#444444] hover:text-[#111111] hover:bg-[#F7F7F7] border border-[#E5E5E5]/80'
                       }`}
                     >
                       {neigh}

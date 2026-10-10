@@ -238,7 +238,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                       isActive
                         ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                         : item.isIcon
-                        ? 'bg-[#F1F1F1] text-[#111111] hover:bg-[#F1F1F1]/80 flex items-center gap-1'
+                        ? 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2] flex items-center gap-1'
                         : 'bg-white text-[#444444] hover:text-[#111111] hover:bg-[#F7F7F7] border border-[#E5E5E5]/80'
                     }`}
                   >
