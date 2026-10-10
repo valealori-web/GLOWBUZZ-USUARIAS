@@ -267,10 +267,10 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                     setSearchQuery('');
                     onShowToast('Mostrando todos los salones de Montevideo');
                   }}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0 transition-all ${
                     activeQuickFilter === 'all' && activeNeighborhood === 'Todos' && !searchQuery
-                      ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
-                      : 'bg-white text-[#444444] border border-[#D9D9D9]'
+                      ? 'bg-[#B82E5F] text-white shadow-sm'
+                      : 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
                   }`}
                 >
                   Todos ({salons.length})
@@ -292,10 +292,10 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                             : `Filtrando por ${neigh}`
                         );
                       }}
-                      className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shrink-0 transition-all ${
                         isActive
-                          ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
-                          : 'bg-white text-[#444444] hover:bg-[#F7F7F7] border border-[#D9D9D9]'
+                          ? 'bg-[#B82E5F] text-white shadow-sm'
+                          : 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
                       }`}
                     >
                       {neigh}
@@ -313,7 +313,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   onClick={() =>
                     setMobileViewMode((prev) => (prev === 'map' ? 'list' : 'map'))
                   }
-                  className="px-2.5 py-1 rounded-full bg-white text-[#111111] border border-[#D9D9D9] text-xs font-bold flex items-center gap-1 shadow-xs"
+                  className="px-3 py-1.5 rounded-full bg-[#571C31] text-white text-xs font-bold flex items-center gap-1 shadow-sm"
                 >
                   <span className="material-symbols-outlined text-[15px]">
                     {mobileViewMode === 'map' ? 'format_list_bulleted' : 'map'}
@@ -356,8 +356,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                     onClick={() => onNavigate({ name: 'salon_profile', salonId: salon.id })}
                     className={`flex gap-4 p-3 rounded-2xl border cursor-pointer transition-colors ${
                       isSelected
-                        ? 'border-[#111111]'
-                        : 'border-[#E5E5E5] hover:border-[#D9D9D9]'
+                        ? 'border-[#B82E5F] bg-[#FDE7EE]/60 shadow-sm'
+                        : 'border-[#F3D3DE] bg-[#FFF8F9] hover:border-[#B82E5F]/40'
                     }`}
                   >
                     <img
@@ -482,7 +482,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                       id={`salon-card-mobile-${salon.id}`}
                       onClick={() => onNavigate({ name: 'salon_profile', salonId: salon.id })}
                       className={`snap-start shrink-0 w-[78vw] max-w-[300px] bg-white rounded-2xl overflow-hidden border cursor-pointer transition-colors ${
-                        isSelected ? 'border-[#111111]' : 'border-[#E5E5E5]'
+                        isSelected ? 'border-[#B82E5F] bg-[#FDE7EE]/60' : 'border-[#F3D3DE] bg-[#FFF8F9]'
                       }`}
                     >
                       <img
