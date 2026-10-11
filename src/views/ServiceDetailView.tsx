@@ -93,7 +93,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
   const handleShareClick = () => {
     onOpenShare(
       `${look.title} en ${salon.name}`,
-      `Descubrí este trabajo real en Glow Buzz · ${look.price}`
+      `Descubrí este trabajo real en GlowBuzz · ${look.price}`
     );
   };
 
@@ -441,7 +441,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                   className="w-full py-3.5 px-4 mt-2 rounded-full bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] font-bold text-sm shadow-md active:scale-98 transition-all flex items-center justify-center gap-2"
                 >
                   <span className="material-symbols-outlined text-[19px]">calendar_month</span>
-                  <span>Reservar con Glow Buzz</span>
+                  <span>Reservar con GlowBuzz</span>
                 </button>
 
               </div>
@@ -542,7 +542,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
             className="flex-1 py-3 px-4 rounded-full bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] font-bold text-xs sm:text-sm shadow-md active:scale-98 transition-transform flex items-center justify-center gap-1.5"
           >
             <span className="material-symbols-outlined text-[17px]">calendar_month</span>
-            <span>Reservar con Glow Buzz</span>
+            <span>Reservar con GlowBuzz</span>
           </button>
         </div>
       </div>

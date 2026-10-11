@@ -177,7 +177,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
                         <span
-                          className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                          className={`text-[9px] font-bold ${item.tag.includes('GlowBuzz') ? 'normal-case' : 'uppercase'} tracking-wider px-2 py-0.5 rounded-full ${
                             item.category === 'espera'
                               ? 'bg-[#FDE7EE] text-[#B82E5F]'
                               : 'bg-[#E5E5E5] text-[#111111]'
@@ -295,7 +295,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F1F1F1] text-[#111111]">
+                        <span className={`text-[9px] font-bold ${item.tag.includes('GlowBuzz') ? 'normal-case' : 'uppercase'} tracking-wider px-2 py-0.5 rounded-full bg-[#F1F1F1] text-[#111111]`}>
                           {item.tag}
                         </span>
                         <span className="text-[11px] text-[#6B6B6B]">{item.timeAgo}</span>
@@ -374,7 +374,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F1F1F1] text-[#444444]">
+                        <span className={`text-[9px] font-bold ${item.tag.includes('GlowBuzz') ? 'normal-case' : 'uppercase'} tracking-wider px-2 py-0.5 rounded-full bg-[#F1F1F1] text-[#444444]`}>
                           {item.tag}
                         </span>
                         <span className="text-[11px] text-[#6B6B6B]">{item.timeAgo}</span>

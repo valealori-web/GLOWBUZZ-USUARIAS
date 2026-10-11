@@ -53,10 +53,10 @@ export const GlowBuzzLogo: React.FC<GlowBuzzLogoProps> = ({
   if (variant === 'wordmark') {
     return (
       <span
-        className={`font-black tracking-tight text-on-surface uppercase ${className}`}
+        className={`font-black tracking-tight text-on-surface ${className}`}
         style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: '-0.03em' }}
       >
-        GLOWBUZZ
+        GlowBuzz
       </span>
     );
   }
@@ -99,7 +99,7 @@ export const GlowBuzzLogo: React.FC<GlowBuzzLogoProps> = ({
         className="font-bold text-xl tracking-tight text-[#B82E5F]"
         style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: '-0.02em' }}
       >
-        Glow Buzz
+        GlowBuzz
       </span>
     </div>
   );

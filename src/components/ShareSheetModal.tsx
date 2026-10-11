@@ -30,7 +30,7 @@ export const ShareSheetModal: React.FC<ShareSheetModalProps> = ({
   };
 
   const handleWhatsApp = () => {
-    const text = encodeURIComponent(`Mirá este trabajo real en Glow Buzz: ${title} ✨ ${shareUrl}`);
+    const text = encodeURIComponent(`Mirá este trabajo real en GlowBuzz: ${title} ✨ ${shareUrl}`);
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     onClose();
   };

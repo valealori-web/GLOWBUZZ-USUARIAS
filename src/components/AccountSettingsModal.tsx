@@ -121,7 +121,7 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
         <div className="flex flex-col gap-2">
           <button
             onClick={() => {
-              onShowToast('Cerraste sesión en Glow Buzz', 'logout');
+              onShowToast('Cerraste sesión en GlowBuzz', 'logout');
               onClose();
             }}
             className="w-full py-2.5 rounded-full text-xs font-bold text-[#BA1A1A] hover:bg-[#FFDAD6] transition-colors"

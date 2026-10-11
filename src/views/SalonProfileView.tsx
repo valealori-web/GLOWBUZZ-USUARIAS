@@ -93,7 +93,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
   };
 
   const handleShare = () => {
-    onOpenShare(salon.name, `${salon.neighborhood} · Salón Verificado en Glow Buzz`);
+    onOpenShare(salon.name, `${salon.neighborhood} · Salón Verificado en GlowBuzz`);
   };
 
   return (
@@ -479,7 +479,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
                             {rev.author}
                           </p>
                           <p className="text-[10px] text-[#6B6B6B]">
-                            Cliente verificada · Reservó por Glow Buzz
+                            Cliente verificada · Reservó por GlowBuzz
                           </p>
                         </div>
                       </div>
@@ -592,7 +592,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
               className="w-full py-3.5 rounded-full bg-white hover:bg-[#FDE7EE] text-[#B82E5F] font-bold text-sm tracking-tight flex items-center justify-center gap-2 shadow-md active:scale-98 transition-all"
             >
               <span className="material-symbols-outlined text-[18px]">event_available</span>
-              <span>Reservar con Glow Buzz</span>
+              <span>Reservar con GlowBuzz</span>
             </button>
 
           </div>

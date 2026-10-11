@@ -109,7 +109,7 @@ export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, on
               <span className="text-5xl sm:text-6xl font-extrabold tracking-tight leading-none">{fmt(points)}</span>
             </div>
             <p className="text-xs sm:text-sm text-[#F5DCE5]/80 mt-3 max-w-xs">
-              Ganás 1 punto por cada $10 en tus turnos reservados con Glow Buzz.
+              Ganás 1 punto por cada $10 en tus turnos reservados con GlowBuzz.
             </p>
           </div>
 

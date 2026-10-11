@@ -110,7 +110,7 @@ export const ExternalBookingModal: React.FC<ExternalBookingModalProps> = ({
               <div>
                 <p className="font-semibold">Reserva directa con el comercio</p>
                 <p className="text-[11px] opacity-90 mt-0.5">
-                  Glow Buzz no cobra comisiones ni adelantos. Te derivamos a la agenda oficial ({provider}) para que confirmes tu turno en tiempo real.
+                  GlowBuzz no cobra comisiones ni adelantos. Te derivamos a la agenda oficial ({provider}) para que confirmes tu turno en tiempo real.
                 </p>
               </div>
             </div>
@@ -162,7 +162,7 @@ export const ExternalBookingModal: React.FC<ExternalBookingModalProps> = ({
             </p>
             <div className="p-3 bg-white rounded-xl border border-[#E5E5E5] w-full text-xs text-left text-[#6B6B6B]">
               <p className="font-semibold text-[#111111] mb-1">Registro de actividad guardado</p>
-              <p>Podrás consultar este recordatorio en la pestaña <strong>Reservas</strong> de Glow Buzz.</p>
+              <p>Podrás consultar este recordatorio en la pestaña <strong>Reservas</strong> de GlowBuzz.</p>
             </div>
             <button
               onClick={handleFinish}

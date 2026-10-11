@@ -1383,7 +1383,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     id: 'notif-4',
     category: 'todas',
     section: 'esta_semana',
-    tag: 'CLUB GLOW BUZZ',
+    tag: 'Club GlowBuzz',
     timeAgo: 'Martes',
     title: '¡Sumaste +150 Puntos Glow!',
     body: 'Gracias por dejar tu reseña con foto en Glow Lashes Boutique. Ya podés canjearlos por beneficios.',

@@ -67,7 +67,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
 
             <div className="text-center flex flex-col gap-1">
               <h2 className="text-2xl font-bold text-[#111111] tracking-tight">
-                Bienvenida a Glow Buzz
+                Bienvenida a GlowBuzz
               </h2>
               <p className="text-sm text-[#444444]">
                 Descubrí y reservá inspiración real de belleza
@@ -225,7 +225,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             </div>
 
             <p className="text-center text-[10px] text-[#444444] opacity-75">
-              Al continuar, aceptás los Términos de Servicio y la Política de Privacidad de Glow Buzz.
+              Al continuar, aceptás los Términos de Servicio y la Política de Privacidad de GlowBuzz.
             </p>
           </div>
         ) : (

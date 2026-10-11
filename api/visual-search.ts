@@ -1,7 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 
 /**
- * Búsqueda por foto: recibe una imagen (base64) y devuelve a qué categoría de Glow Buzz
+ * Búsqueda por foto: recibe una imagen (base64) y devuelve a qué categoría de GlowBuzz
  * se parece, con palabras clave para filtrar looks y servicios.
  *
  * Corre del lado del servidor (función de Vercel). La clave GEMINI_API_KEY nunca llega al navegador.
@@ -16,7 +16,7 @@ export const CATEGORIES = [
   'Botox & Armonización',
 ] as const;
 
-const PROMPT = `Sos el asistente de búsqueda visual de Glow Buzz, una plataforma de belleza.
+const PROMPT = `Sos el asistente de búsqueda visual de GlowBuzz, una plataforma de belleza.
 Mirá la foto e identificá qué servicio o estilo de belleza muestra.
 Respondé SOLO en JSON con:
 - category: exactamente una de ${JSON.stringify(CATEGORIES)}, o null si la foto no tiene que ver con belleza.

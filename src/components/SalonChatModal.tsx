@@ -118,7 +118,7 @@ export const SalonChatModal: React.FC<SalonChatModalProps> = ({
         <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-3">
           <div className="text-center my-1">
             <span className="text-[10px] bg-[#F1F1F1] text-[#444444] px-2.5 py-0.5 rounded-full">
-              Canal directo verificado por Glow Buzz
+              Canal directo verificado por GlowBuzz
             </span>
           </div>
 
