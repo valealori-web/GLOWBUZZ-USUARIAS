@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Salon, Look, ActiveScreen, FilterOptions } from '../types';
 import { HeaderLogo, NotificationBell, BackButton } from '../components/HeaderParts';
 import { CityMap } from '../components/CityMap';
+import { SocialProofRow } from '../components/SocialProofRow';
 import { PhotoSearchBanner, PhotoSearchButton, usePhotoSearch } from '../components/PhotoSearch';
 import { scoreSalon } from '../lib/visualSearch';
 import { parseMaxDistance } from '../lib/geo';
@@ -375,6 +376,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                         <span className="text-[#6B6B6B]">({salon.reviewsCount})</span>
                       </p>
                       <p className="text-xs text-[#6B6B6B] truncate">Próximo turno: {salon.nextSlot}</p>
+                      <SocialProofRow followers={salon.mutualFollowers} onNavigate={onNavigate} variant="compact" />
                     </div>
                   </article>
                 );

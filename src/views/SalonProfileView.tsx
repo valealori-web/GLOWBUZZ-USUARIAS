@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HEADER_CONTAINER, HeaderLogo, BackButton, HeaderIconButton } from '../components/HeaderParts';
 import { Salon, ActiveScreen } from '../types';
 import { CityMap } from '../components/CityMap';
+import { SocialProofRow } from '../components/SocialProofRow';
 import { LOOKS_DATA } from '../data/mockData';
 
 interface SalonProfileViewProps {
@@ -122,38 +123,38 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
         </div>
 
         {/* Identity */}
-        <section className="px-5 -mt-10 relative z-10">
-          <div className="flex items-end gap-5">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white overflow-hidden border-4 border-white shrink-0">
+        <section className="px-4 sm:px-5 relative z-10">
+          <div className="flex items-start gap-3 sm:gap-6">
+            <div className="-mt-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white overflow-hidden border-4 border-white shrink-0">
               <img src={salon.logo} alt={salon.name} className="w-full h-full object-cover" />
             </div>
-            <div className="flex-1 grid grid-cols-3 text-center pb-3 pt-2">
+            <div className="flex-1 min-w-0 grid grid-cols-3 text-center pt-3">
               <div className="flex flex-col">
-                <span className="text-lg font-semibold text-[#111111] leading-tight">
+                <span className="text-base sm:text-lg font-semibold text-[#111111] leading-tight">
                   {salon.worksCount}
                 </span>
-                <span className="text-xs text-[#6B6B6B]">Trabajos</span>
+                <span className="text-[11px] sm:text-xs text-[#6B6B6B]">Trabajos</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-lg font-semibold text-[#111111] leading-tight">
+                <span className="text-base sm:text-lg font-semibold text-[#111111] leading-tight">
                   {salon.followersCount}
                 </span>
-                <span className="text-xs text-[#6B6B6B]">Seguidoras</span>
+                <span className="text-[11px] sm:text-xs text-[#6B6B6B]">Seguidoras</span>
               </div>
               <button
                 type="button"
                 onClick={() => setActiveTab('resenas')}
                 className="flex flex-col"
               >
-                <span className="text-lg font-semibold text-[#111111] leading-tight">
+                <span className="text-base sm:text-lg font-semibold text-[#111111] leading-tight">
                   {salon.rating.toFixed(1)} ★
                 </span>
-                <span className="text-xs text-[#6B6B6B]">{salon.reviewsCount} reseñas</span>
+                <span className="text-[11px] sm:text-xs text-[#6B6B6B]">{salon.reviewsCount} reseñas</span>
               </button>
             </div>
           </div>
 
-          <div className="mt-3 flex items-center gap-1.5">
+          <div className="mt-1 flex items-center gap-1.5">
             <h2 className="text-base font-semibold text-[#111111]">{salon.name}</h2>
             {salon.verified && (
               <span
@@ -176,6 +177,8 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
               {salon.address}, {salon.neighborhood} · {salon.distance}
             </span>
           </button>
+
+          <SocialProofRow followers={salon.mutualFollowers} onNavigate={onNavigate} />
 
           <div className="mt-4 flex items-center gap-2">
             <button

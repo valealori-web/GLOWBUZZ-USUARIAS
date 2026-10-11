@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SocialProofRow } from '../components/SocialProofRow';
 import { HEADER_CONTAINER, HeaderLogo, BackButton, HeaderIconButton } from '../components/HeaderParts';
 import { Look, Salon, ActiveScreen } from '../types';
 
@@ -498,6 +499,8 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                     {isFollowing ? 'Siguiendo' : '+ Seguir'}
                   </button>
                 </div>
+
+                <SocialProofRow followers={salon.mutualFollowers} onNavigate={onNavigate} />
 
                 {/* Location with map shortcut */}
                 <button

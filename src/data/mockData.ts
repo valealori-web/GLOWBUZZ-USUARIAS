@@ -382,7 +382,9 @@ export const SALONS_DATA: Record<string, SalonData> = {
     city: 'Montevideo',
     coordinates: { lat: -34.9085, lng: -56.176 },
     socialProof: '@valen.glow dejó una reseña recientemente',
-    mutualFollowers: [],
+    mutualFollowers: [
+      { avatar: monogram('Lucía Morales'), name: 'Lucía Morales', userId: 'lucia-morales' },
+    ],
     openingHours: {
       weekdays: '10:00 - 19:00',
       saturday: '10:00 - 16:00',
@@ -434,7 +436,9 @@ export const SALONS_DATA: Record<string, SalonData> = {
     city: 'Montevideo',
     coordinates: { lat: -34.8835, lng: -56.054 },
     socialProof: 'Más de 500 clientas verificadas este año',
-    mutualFollowers: [],
+    mutualFollowers: [
+      { avatar: monogram('Sofía Val'), name: 'Sofía Val', userId: 'sofia-val' },
+    ],
     openingHours: {
       weekdays: '10:00 - 19:30',
       saturday: '10:00 - 17:00',
@@ -486,7 +490,10 @@ export const SALONS_DATA: Record<string, SalonData> = {
     city: 'Montevideo',
     coordinates: { lat: -34.9064, lng: -56.204 },
     socialProof: 'Elegida mejor makeup artist revelación 2024',
-    mutualFollowers: [],
+    mutualFollowers: [
+      { avatar: monogram('Lucía Morales'), name: 'Lucía Morales', userId: 'lucia-morales' },
+      { avatar: monogram('Camila Rossi'), name: 'Camila Rossi', userId: 'camila-rossi' },
+    ],
     openingHours: {
       weekdays: '09:00 - 19:00',
       saturday: '08:00 - 20:00',
@@ -606,7 +613,9 @@ export const SALONS_DATA: Record<string, SalonData> = {
     city: 'Montevideo',
     coordinates: { lat: -34.89, lng: -56.106 },
     socialProof: 'Especialistas en efecto Glass Skin sin downtime',
-    mutualFollowers: [],
+    mutualFollowers: [
+      { avatar: monogram('Camila Rossi'), name: 'Camila Rossi', userId: 'camila-rossi' },
+    ],
     openingHours: {
       weekdays: '09:30 - 20:00',
       saturday: '10:00 - 18:00',
