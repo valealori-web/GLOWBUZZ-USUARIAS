@@ -13,7 +13,7 @@ export const HeaderLogo: React.FC<{ onNavigate: (screen: ActiveScreen) => void }
     aria-label="Ir al inicio"
     className="shrink-0 flex items-center rounded-lg active:opacity-70 transition-opacity"
   >
-    <GlowBuzzLogo variant="header" size={32} />
+    <GlowBuzzLogo variant="header" size={30} />
   </button>
 );
 

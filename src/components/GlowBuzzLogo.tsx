@@ -76,31 +76,28 @@ export const GlowBuzzLogo: React.FC<GlowBuzzLogoProps> = ({
     );
   }
 
+  // Mismo logo que el encabezado (y que el panel de profesionales)
   if (variant === 'lockup-light' || variant === 'onboarding') {
-    return (
-      <div className={`flex items-center gap-2.5 ${className}`}>
-        <GlowBuzzLogo variant="icon" size={size} />
-        <span
-          className="text-2xl font-black tracking-tight"
+    return <GlowBuzzLogo variant="header" size={size} className={className} />;
+  }
+
+  // Variante de encabezado: idéntica a la del panel de profesionales (tamaño "sm", sin etiqueta Business).
+  // Mismas proporciones: ícono 30 / texto 16 px; 38 / 20 px; 48 / 24 px; 64 / 30 px.
+  const textSizeClass =
+    size <= 30 ? 'text-base' : size <= 38 ? 'text-xl' : size <= 48 ? 'text-2xl' : 'text-3xl';
+
+  return (
+    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
+      <GlowBuzzLogo variant="icon" size={size} className="flex-shrink-0" />
+      <div className="flex flex-col leading-none">
+        <div
+          className={`font-black tracking-tight ${textSizeClass}`}
           style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: '-0.02em' }}
         >
           <span className="text-[#B82E5F]">Glow</span>
           <span className="text-[#571C31]">Buzz</span>
-        </span>
+        </div>
       </div>
-    );
-  }
-
-  // Default Header variant
-  return (
-    <div className={`flex items-center gap-2 cursor-pointer ${className}`}>
-      <GlowBuzzLogo variant="icon" size={size} />
-      <span
-        className="font-bold text-xl tracking-tight text-[#B82E5F]"
-        style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: '-0.02em' }}
-      >
-        GlowBuzz
-      </span>
     </div>
   );
 };
