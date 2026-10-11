@@ -460,12 +460,6 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                         alt={img.alt}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <div className="absolute top-2 left-2 bg-black/45 backdrop-blur-md px-2 py-0.5 rounded-full text-white flex items-center gap-1 text-[9px] font-bold uppercase">
-                        <span className="material-symbols-outlined text-[11px]">
-                          photo_camera
-                        </span>
-                        <span>TRABAJO REAL</span>
-                      </div>
                       <button
                         type="button"
                         onClick={(e) => {
