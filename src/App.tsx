@@ -230,6 +230,7 @@ export default function App() {
             onOpenFilters={() => setIsFilterOpen(true)}
             currentFilters={filterOptions}
             unreadCount={unreadNotificationsCount}
+            onOpenShare={handleOpenShare}
           />
         )}
 

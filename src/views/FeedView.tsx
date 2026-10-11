@@ -3,6 +3,7 @@ import { Look, ActiveScreen, LookCategory } from '../types';
 import { HeaderLogo, NotificationBell } from '../components/HeaderParts';
 import { PhotoSearchBanner, PhotoSearchButton, usePhotoSearch } from '../components/PhotoSearch';
 import { scoreLook } from '../lib/visualSearch';
+import { PressActions } from '../components/PressActions';
 
 interface FeedViewProps {
   looks: Look[];
@@ -18,6 +19,7 @@ interface FeedViewProps {
     maxPrice: number;
   };
   unreadCount: number;
+  onOpenShare: (title: string, subtitle?: string, url?: string) => void;
 }
 
 export const FeedView: React.FC<FeedViewProps> = ({
@@ -28,16 +30,20 @@ export const FeedView: React.FC<FeedViewProps> = ({
   onOpenFilters,
   currentFilters,
   unreadCount,
+  onOpenShare,
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('Todos');
   const [searchQuery, setSearchQuery] = useState('');
   const photo = usePhotoSearch();
-  // Menú de acciones (mantener presionado en el celular)
-  const [menuLookId, setMenuLookId] = useState<string | null>(null);
+  // Menú de acciones al mantener apretada una foto (celular)
+  const [press, setPress] = useState<{
+    lookId: string;
+    rect: { left: number; top: number; width: number; height: number };
+    point: { x: number; y: number };
+  } | null>(null);
   const pressTimer = useRef<number | null>(null);
   const pressStart = useRef<{ x: number; y: number } | null>(null);
   const longPressFired = useRef(false);
-  const menuOpenedAt = useRef(0);
 
   const cancelPress = () => {
     if (pressTimer.current !== null) {
@@ -49,15 +55,16 @@ export const FeedView: React.FC<FeedViewProps> = ({
 
   const startPress = (e: React.PointerEvent, lookId: string) => {
     if (e.pointerType !== 'touch') return;
+    const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const point = { x: e.clientX, y: e.clientY };
     longPressFired.current = false;
-    pressStart.current = { x: e.clientX, y: e.clientY };
+    pressStart.current = point;
     pressTimer.current = window.setTimeout(() => {
       longPressFired.current = true;
-      menuOpenedAt.current = Date.now();
       pressTimer.current = null;
-      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(10);
-      setMenuLookId(lookId);
-    }, 450);
+      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(12);
+      setPress({ lookId, rect: { left: r.left, top: r.top, width: r.width, height: r.height }, point });
+    }, 420);
   };
 
   const movePress = (e: React.PointerEvent) => {
@@ -65,7 +72,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
     if (start && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 10) cancelPress();
   };
 
-  const menuLook = menuLookId ? looks.find((l) => l.id === menuLookId) : undefined;
+  const pressLook = press ? looks.find((l) => l.id === press.lookId) : undefined;
 
   const filterCategories = [
     { label: 'Todos', value: 'Todos' },
@@ -347,69 +354,42 @@ export const FeedView: React.FC<FeedViewProps> = ({
         )}
       </main>
 
-      {/* Acciones de una publicación (mantener presionado) */}
-      {menuLook && (
-        <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-black/50"
-          onClick={() => {
-            // ignora el click que llega al soltar el dedo tras la pulsación larga
-            if (Date.now() - menuOpenedAt.current < 600) return;
-            setMenuLookId(null);
-          }}
-        >
-          <div
-            role="dialog"
-            aria-label="Opciones de la publicación"
-            className="w-full max-w-md bg-white rounded-t-3xl p-2 pb-8"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="w-10 h-1 rounded-full bg-[#D9D9D9] mx-auto mt-2 mb-3" />
-            <div className="flex items-center gap-3 px-4 pb-3 mb-1 border-b border-[#F1F1F1]">
-              <img
-                src={menuLook.images[0].url}
-                alt=""
-                className="w-12 h-12 rounded-lg object-cover bg-[#F1F1F1]"
-              />
-              <div className="min-w-0">
-                <p className="text-sm font-semibold text-[#111111] truncate">{menuLook.title}</p>
-                <p className="text-xs text-[#6B6B6B] truncate">{menuLook.salonName}</p>
-              </div>
-            </div>
-            {[
-              {
-                icon: savedLookIds.includes(menuLook.id) ? 'bookmark_remove' : 'bookmark_add',
-                label: savedLookIds.includes(menuLook.id) ? 'Quitar de guardados' : 'Guardar',
-                run: () => onToggleSave(menuLook.id),
-              },
-              {
-                icon: 'visibility',
-                label: 'Ver detalle',
-                run: () => onNavigate({ name: 'look_detail', lookId: menuLook.id }),
-              },
-              {
-                icon: 'storefront',
-                label: 'Ir al salón',
-                run: () => onNavigate({ name: 'salon_profile', salonId: menuLook.salonId }),
-              },
-            ].map((item) => (
-              <button
-                key={item.label}
-                type="button"
-                onClick={() => {
-                  if (Date.now() - menuOpenedAt.current < 600) return;
-                  setMenuLookId(null);
-                  item.run();
-                }}
-                className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl hover:bg-[#F7F7F7] text-left transition-colors"
-              >
-                <span className="material-symbols-outlined text-[22px] text-[#111111]">
-                  {item.icon}
-                </span>
-                <span className="text-sm font-medium text-[#111111]">{item.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
+      {/* Acciones de una publicación (mantener apretado) */}
+      {press && pressLook && (
+        <PressActions
+          image={pressLook.images[0].url}
+          alt={pressLook.title}
+          rect={press.rect}
+          point={press.point}
+          onClose={() => setPress(null)}
+          actions={[
+            {
+              id: 'save',
+              icon: savedLookIds.includes(pressLook.id) ? 'bookmark_remove' : 'bookmark_add',
+              label: savedLookIds.includes(pressLook.id) ? 'Guardado' : 'Guardar',
+              active: savedLookIds.includes(pressLook.id),
+              run: () => onToggleSave(pressLook.id),
+            },
+            {
+              id: 'share',
+              icon: 'ios_share',
+              label: 'Compartir',
+              run: () => onOpenShare(pressLook.title, pressLook.salonName),
+            },
+            {
+              id: 'detail',
+              icon: 'visibility',
+              label: 'Detalle',
+              run: () => onNavigate({ name: 'look_detail', lookId: pressLook.id }),
+            },
+            {
+              id: 'salon',
+              icon: 'storefront',
+              label: 'Salón',
+              run: () => onNavigate({ name: 'salon_profile', salonId: pressLook.salonId }),
+            },
+          ]}
+        />
       )}
     </div>
   );

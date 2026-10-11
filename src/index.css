@@ -105,3 +105,31 @@
   .gb-mapwrap .leaflet-bottom { bottom: 108px; }
   .gb-mapwrap .leaflet-control-zoom { display: none; }
 }
+
+/* ---------- Menú al mantener apretada una foto (estilo Pinterest) ---------- */
+.gb-press-backdrop {
+  background: rgb(255 255 255 / 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: gb-fade 0.18s ease-out both;
+  touch-action: none;
+}
+.gb-press-lift {
+  animation: gb-lift 0.3s cubic-bezier(0.2, 1.3, 0.4, 1) both;
+  transform-origin: center;
+}
+.gb-press-pop {
+  animation: gb-pop 0.28s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+@keyframes gb-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes gb-lift {
+  from { transform: scale(1) rotate(0deg); box-shadow: 0 0 0 rgb(0 0 0 / 0); }
+  to { transform: scale(1.05) rotate(2.5deg); box-shadow: 0 26px 50px rgb(0 0 0 / 0.3); }
+}
+@keyframes gb-pop {
+  from { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2); }
+  to { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gb-press-lift, .gb-press-pop, .gb-press-backdrop { animation-duration: 0.01s; }
+}
