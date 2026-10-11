@@ -264,7 +264,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                     onClick={() => toggleInterest(item.id)}
                     className={`p-3 rounded-2xl border text-left flex items-center justify-between transition-all ${
                       isSelected
-                        ? 'bg-[#FDE7EE] border-[#111111] text-[#B82E5F] shadow-xs'
+                        ? 'bg-[#FDE7EE] border-[#B82E5F] text-[#B82E5F] shadow-xs'
                         : 'bg-white border-[#D9D9D9] text-[#111111] hover:bg-[#F7F7F7]'
                     }`}
                   >

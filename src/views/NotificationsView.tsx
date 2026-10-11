@@ -92,7 +92,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
         {/* Horizontal Filter Pills */}
         <nav
           aria-label="Filtros de actividad"
-          className="flex items-center gap-2 overflow-x-auto py-2 -mx-5 px-5 no-scrollbar"
+          className="flex items-center gap-2 overflow-x-auto py-2 -mx-4 px-4 sm:-mx-6 sm:px-6 no-scrollbar"
         >
           <button
             type="button"

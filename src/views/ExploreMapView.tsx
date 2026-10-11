@@ -257,8 +257,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
         {/* Filter Pills Ribbon (Mobile & Desktop) */}
         <div className="w-full border-t border-[#F1F1F1]/40 bg-[#FFFFFF]/70">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between gap-2 py-2 overflow-x-auto no-scrollbar">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 py-2">
+              <div className="flex-1 min-w-0 flex items-center gap-2 overflow-x-auto no-scrollbar">
                 <button
                   type="button"
                   onClick={() => {
@@ -307,7 +307,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               </div>
 
               {/* Mobile View Toggle Button (Map / List) */}
-              <div className="md:hidden flex items-center shrink-0 ml-auto">
+              <div className="md:hidden flex items-center shrink-0">
                 <button
                   type="button"
                   onClick={() =>
@@ -413,7 +413,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               mobileViewMode === 'list' ? 'hidden md:flex' : 'flex'
             }`}
           >
-            <div className="sticky top-32 w-full h-[62vh] md:h-[calc(100vh-180px)] rounded-3xl overflow-hidden border border-[#D9D9D9] shadow-md relative bg-[#F2F2F2] select-none">
+            <div className="sticky top-32 w-full h-[calc(100dvh-260px)] min-h-[380px] md:h-[calc(100vh-180px)] gb-mapwrap rounded-3xl overflow-hidden border border-[#D9D9D9] shadow-md relative bg-[#F2F2F2] select-none">
               {/* Mapa real de Montevideo (Leaflet + OpenStreetMap) */}
               <CityMap
                 salons={filteredSalons}
@@ -466,41 +466,45 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   </button>
                 </div>
               )}
-            </div>
-
-            {/* Mobile Carousel of Cards when Map View is active */}
-            <div className="md:hidden mt-3">
-              <div
-                ref={carouselRef}
-                className="flex gap-3 overflow-x-auto no-scrollbar px-1 snap-x snap-mandatory pb-2"
-              >
-                {filteredSalons.map((salon) => {
-                  const isSelected = selectedPinId === salon.id;
-                  return (
-                    <div
-                      key={salon.id}
-                      id={`salon-card-mobile-${salon.id}`}
-                      onClick={() => onNavigate({ name: 'salon_profile', salonId: salon.id })}
-                      className={`snap-start shrink-0 w-[78vw] max-w-[300px] bg-white rounded-2xl overflow-hidden border cursor-pointer transition-colors ${
-                        isSelected ? 'border-[#B82E5F] bg-[#FDE7EE]/60' : 'border-[#F3D3DE] bg-[#FFF8F9]'
-                      }`}
-                    >
-                      <img
-                        src={salon.coverImage}
-                        alt={salon.name}
-                        className="h-32 w-full object-cover bg-[#F1F1F1]"
-                      />
-                      <div className="p-3">
-                        <h4 className="text-sm font-semibold text-[#111111] truncate">{salon.name}</h4>
-                        <p className="text-xs text-[#6B6B6B] truncate">
-                          {salon.neighborhood} · {salon.distance} · ★ {salon.rating.toFixed(1)}
-                        </p>
+              {/* Tarjetas de salones sobre el mapa (solo celular) */}
+              <div className="md:hidden absolute bottom-3 left-0 right-0 z-20">
+                <div
+                  ref={carouselRef}
+                  className="flex gap-2.5 overflow-x-auto no-scrollbar px-3 snap-x snap-mandatory pb-1"
+                >
+                  {filteredSalons.map((salon) => {
+                    const isSelected = selectedPinId === salon.id;
+                    return (
+                      <div
+                        key={salon.id}
+                        id={`salon-card-mobile-${salon.id}`}
+                        onClick={() => onNavigate({ name: 'salon_profile', salonId: salon.id })}
+                        className={`snap-start shrink-0 w-[78vw] max-w-[320px] flex items-center gap-3 p-2.5 rounded-2xl shadow-lg border cursor-pointer transition-colors ${
+                          isSelected ? 'border-[#B82E5F] bg-[#FDE7EE]' : 'border-[#F3D3DE] bg-white'
+                        }`}
+                      >
+                        <img
+                          src={salon.coverImage}
+                          alt={salon.name}
+                          className="w-16 h-16 rounded-xl object-cover bg-[#F1F1F1] shrink-0"
+                        />
+                        <div className="min-w-0">
+                          <h4 className="text-sm font-semibold text-[#111111] truncate">{salon.name}</h4>
+                          <p className="text-xs text-[#6B6B6B] truncate">
+                            {salon.neighborhood} · {salon.distance}
+                          </p>
+                          <p className="text-xs text-[#111111]">
+                            ★ {salon.rating.toFixed(1)}{' '}
+                            <span className="text-[#6B6B6B]">· {salon.nextSlot}</span>
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </main>

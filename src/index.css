@@ -100,3 +100,8 @@
 .gb-user__dot { position: absolute; inset: 0; border-radius: 9999px; background: #2563EB; border: 3px solid #fff; box-shadow: 0 2px 6px rgb(0 0 0 / .3); box-sizing: border-box; }
 .gb-user__pulse { position: absolute; inset: -10px; border-radius: 9999px; background: rgb(37 99 235 / .25); animation: gb-ping 1.6s cubic-bezier(0,0,.2,1) infinite; }
 @keyframes gb-ping { 75%, 100% { transform: scale(1.8); opacity: 0; } }
+
+@media (max-width: 767px) {
+  .gb-mapwrap .leaflet-bottom { bottom: 108px; }
+  .gb-mapwrap .leaflet-control-zoom { display: none; }
+}

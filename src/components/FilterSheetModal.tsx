@@ -110,7 +110,7 @@ export const FilterSheetModal: React.FC<FilterSheetModalProps> = ({
                 onClick={() => setFilters({ ...filters, maxDistance: dist })}
                 className={`py-2 px-3 rounded-xl text-xs font-medium text-center border transition-all ${
                   filters.maxDistance === dist
-                    ? 'bg-[#F1F1F1] border-[#111111] text-[#111111] font-bold'
+                    ? 'bg-[#FDE7EE] border-[#B82E5F] text-[#B82E5F] font-bold'
                     : 'bg-white border-[#D9D9D9] text-[#444444]'
                 }`}
               >
@@ -133,7 +133,7 @@ export const FilterSheetModal: React.FC<FilterSheetModalProps> = ({
                 onClick={() => setFilters({ ...filters, availability: av })}
                 className={`py-2 px-3 rounded-xl text-xs font-medium text-center border transition-all ${
                   filters.availability === av
-                    ? 'bg-[#F1F1F1] border-[#111111] text-[#111111] font-bold'
+                    ? 'bg-[#FDE7EE] border-[#B82E5F] text-[#B82E5F] font-bold'
                     : 'bg-white border-[#D9D9D9] text-[#444444]'
                 }`}
               >
@@ -156,7 +156,7 @@ export const FilterSheetModal: React.FC<FilterSheetModalProps> = ({
                 onClick={() => setFilters({ ...filters, minRating: rate })}
                 className={`flex-1 py-2 px-3 rounded-full text-xs font-semibold flex items-center justify-center gap-1 border transition-all ${
                   filters.minRating === rate
-                    ? 'bg-[#FDE7EE] text-[#B82E5F] border-[#111111]'
+                    ? 'bg-[#FDE7EE] text-[#B82E5F] border-[#B82E5F]'
                     : 'bg-white border-[#D9D9D9] text-[#444444]'
                 }`}
               >

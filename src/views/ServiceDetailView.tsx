@@ -421,7 +421,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                             onClick={() => setSelectedSlot(slot)}
                             className={`p-2.5 rounded-xl text-xs font-semibold transition-all border text-left ${
                               isSelected
-                                ? 'bg-[#FDE7EE] text-[#B82E5F] border-[#111111] shadow-xs'
+                                ? 'bg-[#FDE7EE] text-[#B82E5F] border-[#B82E5F] shadow-xs'
                                 : 'bg-[#F7F7F7] text-[#111111] border-[#E5E5E5] hover:border-[#D9D9D9]'
                             }`}
                           >

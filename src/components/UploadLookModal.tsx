@@ -166,8 +166,8 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
                 }}
                 className={`w-full h-44 rounded-2xl border-2 border-dashed flex flex-col items-center justify-center gap-2 transition-colors ${
                   isDragging
-                    ? 'border-[#111111] bg-[#F4F4F4]'
-                    : 'border-[#D9D9D9] bg-[#F7F7F7] hover:border-[#111111]'
+                    ? 'border-[#B82E5F] bg-[#FDE7EE]'
+                    : 'border-[#D9D9D9] bg-[#F7F7F7] hover:border-[#B82E5F]'
                 }`}
               >
                 <span className="material-symbols-outlined text-[32px] text-[#111111]">

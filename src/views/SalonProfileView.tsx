@@ -127,7 +127,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white overflow-hidden border-4 border-white shrink-0">
               <img src={salon.logo} alt={salon.name} className="w-full h-full object-cover" />
             </div>
-            <div className="flex-1 grid grid-cols-3 text-center pb-1">
+            <div className="flex-1 grid grid-cols-3 text-center pb-3 pt-2">
               <div className="flex flex-col">
                 <span className="text-lg font-semibold text-[#111111] leading-tight">
                   {salon.worksCount}
