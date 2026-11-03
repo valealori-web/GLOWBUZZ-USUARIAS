@@ -141,6 +141,8 @@ export interface SalonData {
   }[];
   nextSlot: string;
   externalBookingProvider: 'Fresha' | 'Timely' | 'Calendly' | 'WhatsApp';
+  /** Comercio de ejemplo: se ve en el catálogo pero todavía no recibe reservas. */
+  demo?: boolean;
   /** Solo para comercios conectados a GlowBuzz Business: permite reservar directo en su agenda. */
   live?: {
     businessId: string;

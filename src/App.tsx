@@ -255,7 +255,12 @@ export default function App() {
     slot: string;
     provider?: 'Fresha' | 'Timely' | 'Calendly' | 'WhatsApp';
   }) => {
-    const liveSalon = Object.values(salons).find((salon) => salon.live && salon.name === details.salonName);
+    const matched = Object.values(salons).find((salon) => salon.name === details.salonName);
+    if (matched?.demo) {
+      showToast('Comercio de ejemplo: aún no recibe reservas', 'info');
+      return;
+    }
+    const liveSalon = matched?.live ? matched : undefined;
     if (liveSalon) {
       setLiveBooking({ salonId: liveSalon.id, serviceName: details.serviceName });
       return;

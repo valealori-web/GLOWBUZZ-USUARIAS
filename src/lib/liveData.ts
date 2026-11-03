@@ -48,6 +48,7 @@ interface BusinessRow {
   hours: LiveHour[];
   rating: number;
   reviews_count: number;
+  is_demo: boolean;
 }
 
 interface ServiceRow {
@@ -71,6 +72,7 @@ interface WorkRow {
   price_uyu: number;
   description: string;
   image_url: string;
+  tags: string[] | null;
   source: 'my_work' | 'client_ugc';
   client_name: string | null;
   review_rating: number | null;
@@ -90,11 +92,43 @@ interface BookingRow {
   status: LiveBooking['status'];
 }
 
-const lookCategory = (serviceCategory: string): Look['category'] =>
-  /pesta|ceja/i.test(serviceCategory) ? 'Cejas & Pestañas' : 'Uñas';
+const LOOK_CATEGORIES: Look['category'][] = ['Uñas', 'Pelo & Color', 'Cejas & Pestañas', 'Maquillaje', 'Estética Facial', 'Botox & Armonización'];
 
-const categoryLabel = (category: Look['category']): string =>
-  category === 'Uñas' ? 'Uñas & Manicuría' : 'Cejas & Pestañas';
+/** Categoría del feed: la que trae el trabajo, o se deduce de la categoría del servicio. */
+const lookCategory = (tags: string[] | null, serviceCategory: string): Look['category'] => {
+  const tagged = (tags ?? []).find((t) => (LOOK_CATEGORIES as string[]).includes(t));
+  if (tagged) return tagged as Look['category'];
+  if (/pesta|ceja/i.test(serviceCategory)) return 'Cejas & Pestañas';
+  if (/pelo|color|balayage|corte|capilar|peluquer/i.test(serviceCategory)) return 'Pelo & Color';
+  if (/maquill/i.test(serviceCategory)) return 'Maquillaje';
+  if (/botox|armoniz|relleno/i.test(serviceCategory)) return 'Botox & Armonización';
+  if (/facial|est[eé]tica|cosmiat|piel/i.test(serviceCategory)) return 'Estética Facial';
+  return 'Uñas';
+};
+
+const categoryLabel = (category: Look['category']): string => (category === 'Uñas' ? 'Uñas & Manicuría' : category);
+
+// Zonas de Montevideo para ubicar cada comercio en el mapa (sin ubicación exacta, se usa la del barrio).
+const NEIGHBORHOODS: Record<string, { lat: number; lng: number }> = {
+  pocitos: { lat: -34.9136, lng: -56.15 },
+  'punta carretas': { lat: -34.9235, lng: -56.1585 },
+  cordon: { lat: -34.9, lng: -56.1745 },
+  carrasco: { lat: -34.8856, lng: -56.0525 },
+  'ciudad vieja': { lat: -34.9072, lng: -56.2028 },
+  buceo: { lat: -34.8948, lng: -56.1304 },
+  malvin: { lat: -34.8972, lng: -56.1002 },
+  centro: { lat: -34.9055, lng: -56.1892 },
+  'parque rodo': { lat: -34.9175, lng: -56.1675 },
+  'tres cruces': { lat: -34.8953, lng: -56.1663 },
+  union: { lat: -34.8832, lng: -56.1435 },
+};
+const coordinatesFor = (neighborhood: string, id: string) => {
+  const key = neighborhood.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const base = NEIGHBORHOODS[key] ?? { lat: -34.9055, lng: -56.1892 };
+  // Pequeño desplazamiento fijo por comercio para que dos del mismo barrio no queden encimados.
+  const hash = [...id].reduce((acc, ch) => (acc * 31 + ch.charCodeAt(0)) % 997, 7);
+  return { lat: base.lat + ((hash % 21) - 10) * 0.0004, lng: base.lng + (((hash >> 3) % 21) - 10) * 0.0004 };
+};
 
 const hoursText = (hours: LiveHour[], names: string[]): string => {
   const found = hours.find((h) => names.includes(h.day) && h.active);
@@ -128,7 +162,7 @@ export const fetchLiveCatalog = async (): Promise<LiveCatalog | null> => {
 
     const bizLooks: Look[] = myWorks.map((w) => {
       const service = serviceById.get(w.service_id);
-      const category = lookCategory(service?.category ?? '');
+      const category = lookCategory(w.tags, service?.category ?? '');
       const duration = service ? durationLabel(service.duration_minutes) : '1h';
       return {
         id: `live-${w.id}`,
@@ -174,7 +208,8 @@ export const fetchLiveCatalog = async (): Promise<LiveCatalog | null> => {
       address: biz.address,
       neighborhood,
       city: 'Montevideo',
-      coordinates: { lat: -34.9112, lng: -56.1461 },
+      coordinates: coordinatesFor(neighborhood, biz.id),
+      demo: biz.is_demo,
       socialProof: 'Comercio conectado a GlowBuzz Business',
       mutualFollowers: [],
       openingHours: {
