@@ -7,7 +7,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { ActiveScreen, Look, Salon } from './types';
 import { distanceKm, formatDistance } from './lib/geo';
 import { useUserLocation } from './lib/useUserLocation';
-import { LOOKS_DATA, SALONS_DATA, INITIAL_NOTIFICATIONS, OTHER_USERS_DATA } from './data/mockData';
+import { NotificationItem } from './types';
+import { useCurrentUser } from './context/AuthContext';
 import { LiveCatalog, fetchLiveCatalog } from './lib/liveData';
 import { LiveBookingModal } from './components/LiveBookingModal';
 import { LoyaltyView } from './views/LoyaltyView';
@@ -27,7 +28,17 @@ import { ExploreMapView } from './views/ExploreMapView';
 import { NotificationsView } from './views/NotificationsView';
 import { ProfileView } from './views/ProfileView';
 import { ReservationsView } from './views/ReservationsView';
-import { OtherUserProfileView } from './views/OtherUserProfileView';
+
+/** Se muestra cuando se abre algo que ya no existe (por ejemplo, un comercio que dejó de publicar). */
+const MissingContent: React.FC<{ onBack: () => void }> = ({ onBack }) => (
+  <div className="flex-1 flex flex-col items-center justify-center text-center px-6 py-24">
+    <span className="material-symbols-outlined text-[40px] text-[#D9D9D9] mb-2">search_off</span>
+    <p className="text-sm font-bold text-[#111111]">Este contenido ya no está disponible</p>
+    <button type="button" onClick={onBack} className="mt-4 px-5 py-2 rounded-full bg-[#FDE7EE] text-[#B82E5F] text-xs font-bold">
+      Volver
+    </button>
+  </div>
+);
 
 export default function App() {
   // Navigation State with history stack
@@ -51,23 +62,34 @@ export default function App() {
     };
   }, []);
 
-  const looks = useMemo<Look[]>(() => [...(liveCatalog?.looks ?? []), ...LOOKS_DATA], [liveCatalog]);
+  const looks = useMemo<Look[]>(() => liveCatalog?.looks ?? [], [liveCatalog]);
   const userLocation = useUserLocation();
   const salons = useMemo(() => {
     const result: Record<string, Salon> = {};
-    for (const [id, data] of Object.entries({ ...SALONS_DATA, ...(liveCatalog?.salons ?? {}) })) {
+    for (const [id, data] of Object.entries(liveCatalog?.salons ?? {})) {
       const km = distanceKm(userLocation.position, data.coordinates);
       result[id] = { ...data, distanceKm: km, distance: formatDistance(km) };
     }
     return result;
   }, [userLocation.position, liveCatalog]);
-  const [savedLookIds, setSavedLookIds] = useState<string[]>([
-    'look-kapping-cherry',
-    'look-balayage-vainilla',
-    'look-soft-glam-makeup',
-    'look-laminado-cejas',
-  ]);
-  const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
+  // Guardados de esta usuaria (quedan en este dispositivo)
+  const me = useCurrentUser();
+  const savedKey = `glowbuzz-saved-${me.id}`;
+  const [savedLookIds, setSavedLookIds] = useState<string[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem(savedKey) ?? '[]') as string[];
+    } catch {
+      return [];
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem(savedKey, JSON.stringify(savedLookIds));
+    } catch {
+      /* sin almacenamiento disponible */
+    }
+  }, [savedKey, savedLookIds]);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
 
   // Toast State
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -94,8 +116,8 @@ export default function App() {
     category: 'Todas',
     maxDistance: 'Todo Montevideo',
     availability: 'Cualquiera',
-    minRating: 4.8,
-    maxPrice: 30000,
+    minRating: 0,
+    maxPrice: 1000000,
   });
 
   // Onboarding / Interests Modal State
@@ -215,6 +237,10 @@ export default function App() {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
+  const salonNames = useMemo(
+    () => Object.fromEntries(Object.values(salons).map((salon) => [salon.id, salon.name])),
+    [salons]
+  );
   const unreadNotificationsCount = notifications.filter((n) => n.unread).length;
 
   // Reserva directa en comercios conectados a GlowBuzz Business
@@ -262,8 +288,9 @@ export default function App() {
 
         {currentScreen.name === 'look_detail' && (
           (() => {
-            const foundLook = looks.find((l) => l.id === currentScreen.lookId) || looks[0];
-            const foundSalon = salons[foundLook.salonId] || salons['maison-hair-co'];
+            const foundLook = looks.find((l) => l.id === currentScreen.lookId);
+            const foundSalon = foundLook ? salons[foundLook.salonId] : undefined;
+            if (!foundLook || !foundSalon) return <MissingContent onBack={handleBack} />;
             return (
               <ServiceDetailView
                 look={foundLook}
@@ -283,32 +310,17 @@ export default function App() {
 
         {currentScreen.name === 'salon_profile' && (
           (() => {
-            const foundSalon = salons[currentScreen.salonId] || salons['maison-hair-co'];
+            const foundSalon = salons[currentScreen.salonId];
+            if (!foundSalon) return <MissingContent onBack={handleBack} />;
             return (
               <SalonProfileView
                 salon={foundSalon}
+                looks={looks}
                 initialTab={currentScreen.initialTab}
                 onNavigate={handleNavigate}
                 onBack={handleBack}
                 onOpenBooking={handleOpenBooking}
                 onOpenChat={handleOpenChat}
-                onOpenLightbox={handleOpenLightbox}
-                onOpenShare={handleOpenShare}
-                onShowToast={showToast}
-              />
-            );
-          })()
-        )}
-
-        {currentScreen.name === 'user_profile' && (
-          (() => {
-            const foundUser =
-              OTHER_USERS_DATA[currentScreen.userId] || Object.values(OTHER_USERS_DATA)[0];
-            return (
-              <OtherUserProfileView
-                user={foundUser}
-                onNavigate={handleNavigate}
-                onBack={handleBack}
                 onOpenLightbox={handleOpenLightbox}
                 onOpenShare={handleOpenShare}
                 onShowToast={showToast}
@@ -357,6 +369,7 @@ export default function App() {
             onOpenLightbox={handleOpenLightbox}
             onShowToast={showToast}
             unreadCount={unreadNotificationsCount}
+            salonNames={salonNames}
           />
         )}
 
@@ -370,7 +383,7 @@ export default function App() {
             onOpenBooking={handleOpenBooking}
             onShowToast={showToast}
             unreadCount={unreadNotificationsCount}
-            salonNames={Object.fromEntries(Object.values(salons).map((salon) => [salon.id, salon.name]))}
+            salonNames={salonNames}
           />
         )}
       </div>

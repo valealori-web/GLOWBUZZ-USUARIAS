@@ -1,13 +1,23 @@
 import { Look, LiveBooking, LiveHour, LiveService, SalonData } from '../types';
 import { monogram } from '../data/images';
-import { sbInsert, sbSelect } from './supabase';
+import { supabase } from './supabase';
 
-/** Usuaria de la demo (la misma del perfil de la app). */
-export const DEMO_USER = {
-  id: 'usuaria-demo',
-  name: 'Valentina Rossi',
-  phone: '+598 91 303 912',
-  email: 'valentina.rossi@example.com',
+/** Datos de la usuaria que reserva (salen de su cuenta). */
+export interface Booker {
+  id: string;
+  name: string;
+  phone: string;
+  email: string;
+}
+
+/** Lee una tabla y devuelve null si falla (sin conexión o sin permiso). */
+const select = async <T>(table: string, build: (q: ReturnType<ReturnType<typeof supabase.from>['select']>) => PromiseLike<{ data: unknown; error: unknown }>): Promise<T[] | null> => {
+  const { data, error } = await build(supabase.from(table).select('*'));
+  if (error) {
+    console.warn(`Supabase ${table}:`, error);
+    return null;
+  }
+  return data as T[];
 };
 
 // ---------- Formato ----------
@@ -98,16 +108,16 @@ export interface LiveCatalog {
 }
 
 export const fetchLiveCatalog = async (): Promise<LiveCatalog | null> => {
-  const businesses = await sbSelect<BusinessRow>('businesses', 'published=eq.true');
-  if (!businesses || businesses.length === 0) return null;
+  const businesses = await select<BusinessRow>('businesses', (q) => q.eq('published', true));
+  if (!businesses) return null;
 
   const salons: Record<string, SalonData> = {};
   const looks: Look[] = [];
 
   for (const biz of businesses) {
     const [services, works] = await Promise.all([
-      sbSelect<ServiceRow>('services', `business_id=eq.${biz.id}&active=eq.true&order=price_uyu.asc`),
-      sbSelect<WorkRow>('works', `business_id=eq.${biz.id}&status=eq.approved&order=views.desc`),
+      select<ServiceRow>('services', (q) => q.eq('business_id', biz.id).eq('active', true).order('price_uyu', { ascending: true })),
+      select<WorkRow>('works', (q) => q.eq('business_id', biz.id).eq('status', 'approved').order('views', { ascending: false })),
     ]);
     if (!services || !works) return null;
 
@@ -234,11 +244,15 @@ export interface BusySlot {
   professional_id: string;
 }
 
-export const fetchBusySlots = async (businessId: string, fromDate: string): Promise<BusySlot[]> =>
-  (await sbSelect<BusySlot>(
-    'bookings',
-    `select=date,time,duration_minutes,professional_id&business_id=eq.${businessId}&date=gte.${fromDate}&status=neq.cancelled`
-  )) ?? [];
+/** Horarios ocupados del comercio (sin nombres ni datos de otras clientas). */
+export const fetchBusySlots = async (businessId: string, fromDate: string): Promise<BusySlot[]> => {
+  const { data, error } = await supabase.rpc('get_busy_slots', { p_business_id: businessId, p_from: fromDate });
+  if (error) {
+    console.warn('get_busy_slots:', error);
+    return [];
+  }
+  return (data ?? []) as BusySlot[];
+};
 
 const WEEKDAYS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 const toMinutes = (hhmm: string): number => {
@@ -286,16 +300,17 @@ export interface NewLiveBooking {
   service: LiveService;
   date: string;
   time: string;
+  booker: Booker;
 }
 
-export const createLiveBooking = async ({ businessId, service, date, time }: NewLiveBooking): Promise<boolean> =>
-  sbInsert('bookings', {
+export const createLiveBooking = async ({ businessId, service, date, time, booker }: NewLiveBooking): Promise<boolean> => {
+  const { error } = await supabase.from('bookings').insert({
     id: `ub_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`,
     business_id: businessId,
-    client_user_id: DEMO_USER.id,
-    client_name: DEMO_USER.name,
-    client_phone: DEMO_USER.phone,
-    client_email: DEMO_USER.email,
+    client_user_id: booker.id,
+    client_name: booker.name,
+    client_phone: booker.phone,
+    client_email: booker.email,
     service_id: service.id,
     service_name: service.name,
     professional_id: service.professionalId,
@@ -307,9 +322,15 @@ export const createLiveBooking = async ({ businessId, service, date, time }: New
     status: 'pending',
     source: 'GlowBuzz Feed',
   });
+  if (error) console.warn('crear reserva:', error);
+  return !error;
+};
 
-export const fetchMyBookings = async (): Promise<LiveBooking[] | null> => {
-  const rows = await sbSelect<BookingRow>('bookings', `client_user_id=eq.${DEMO_USER.id}&order=created_at.desc`);
+/** Reservas de la usuaria con sesión iniciada (la base solo devuelve las suyas). */
+export const fetchMyBookings = async (userId: string): Promise<LiveBooking[] | null> => {
+  const rows = await select<BookingRow>('bookings', (q) =>
+    q.eq('client_user_id', userId).order('date', { ascending: false }).order('time', { ascending: false })
+  );
   return rows
     ? rows.map((r) => ({
         id: r.id,

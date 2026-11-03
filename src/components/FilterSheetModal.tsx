@@ -36,15 +36,15 @@ export const FilterSheetModal: React.FC<FilterSheetModalProps> = ({
   ];
   const distances = ['< 1 km', '< 5 km', '< 20 km', 'Todo Montevideo'];
   const availabilities = ['Cualquiera', 'Hoy', 'Mañana', 'Esta semana'];
-  const ratings = [4.5, 4.8, 4.9];
+  const ratings = [0, 4.5, 4.8, 4.9];
 
   const handleReset = () => {
     const resetValues: FilterOptions = {
       category: 'Todas',
       maxDistance: 'Todo Montevideo',
       availability: 'Cualquiera',
-      minRating: 4.8,
-      maxPrice: 30000,
+      minRating: 0,
+      maxPrice: 1000000,
     };
     setFilters(resetValues);
     onApplyFilters(resetValues);
@@ -160,7 +160,7 @@ export const FilterSheetModal: React.FC<FilterSheetModalProps> = ({
                     : 'bg-white border-[#D9D9D9] text-[#444444]'
                 }`}
               >
-                <span>{rate}★</span>
+                <span>{rate === 0 ? 'Todas' : `${rate}★`}</span>
               </button>
             ))}
           </div>

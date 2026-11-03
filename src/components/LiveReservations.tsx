@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { LiveBooking } from '../types';
+import { useCurrentUser } from '../context/AuthContext';
 import { fetchMyBookings } from '../lib/liveData';
 
 const STATUS: Record<LiveBooking['status'], { label: string; className: string }> = {
@@ -18,12 +19,13 @@ const formatDate = (dateKey: string): string => {
 
 /** Reservas hechas en comercios conectados a GlowBuzz Business; el estado lo actualiza el comercio. */
 export const LiveReservations: React.FC<{ salonNames: Record<string, string> }> = ({ salonNames }) => {
-  const [bookings, setBookings] = useState<LiveBooking[]>([]);
+  const me = useCurrentUser();
+  const [bookings, setBookings] = useState<LiveBooking[] | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     const load = async () => {
-      const rows = await fetchMyBookings();
+      const rows = await fetchMyBookings(me.id);
       if (rows && !cancelled) setBookings(rows);
     };
     void load();
@@ -32,9 +34,21 @@ export const LiveReservations: React.FC<{ salonNames: Record<string, string> }> 
       cancelled = true;
       clearInterval(interval);
     };
-  }, []);
+  }, [me.id]);
 
-  if (bookings.length === 0) return null;
+  if (bookings === null) return null;
+
+  if (bookings.length === 0) {
+    return (
+      <div className="flex flex-col items-center text-center py-12 px-6">
+        <span className="material-symbols-outlined text-[40px] text-[#D9D9D9] mb-2">event_available</span>
+        <p className="text-sm font-bold text-[#111111]">Todavía no tenés reservas</p>
+        <p className="text-xs text-[#6B6B6B] mt-1 max-w-xs">
+          Cuando reserves un turno en un comercio de GlowBuzz, lo vas a ver acá con su estado.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <section className="flex flex-col gap-2.5 mt-2">

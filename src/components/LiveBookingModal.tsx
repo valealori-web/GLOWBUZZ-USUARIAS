@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useCurrentUser } from '../context/AuthContext';
 import { LiveService, SalonData } from '../types';
 import {
   BusySlot,
-  DEMO_USER,
   buildSlots,
   createLiveBooking,
   durationLabel,
@@ -26,6 +26,7 @@ const MONTHS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 
 /** Reserva directa en la agenda de un comercio conectado a GlowBuzz Business. */
 export const LiveBookingModal: React.FC<LiveBookingModalProps> = ({ isOpen, onClose, salon, serviceName, onBooked }) => {
   const live = salon.live;
+  const me = useCurrentUser();
   const [serviceId, setServiceId] = useState<string | null>(null);
   const [dateKey, setDateKey] = useState<string | null>(null);
   const [time, setTime] = useState<string | null>(null);
@@ -72,7 +73,7 @@ export const LiveBookingModal: React.FC<LiveBookingModalProps> = ({ isOpen, onCl
     if (!service || !dateKey || !time) return;
     setSaving(true);
     setError(null);
-    const ok = await createLiveBooking({ businessId: live.businessId, service, date: dateKey, time });
+    const ok = await createLiveBooking({ businessId: live.businessId, service, date: dateKey, time, booker: me });
     setSaving(false);
     if (!ok) {
       setError('No pudimos enviar tu reserva. Revisá tu conexión e intentá de nuevo.');
@@ -201,7 +202,7 @@ export const LiveBookingModal: React.FC<LiveBookingModalProps> = ({ isOpen, onCl
             <div className="p-3 rounded-xl bg-[#F1F1F1]/50 border border-[#F1F1F1] text-xs text-[#111111] flex items-start gap-2 leading-relaxed">
               <span className="material-symbols-outlined text-[18px] shrink-0 mt-0.5">verified_user</span>
               <p>
-                Reservás como <strong>{DEMO_USER.name}</strong>. {salon.name} confirma tu turno y lo ves en la pestaña Reservas. Sin pago anticipado.
+                Reservás como <strong>{me.name}</strong>. {salon.name} confirma tu turno y lo ves en la pestaña Reservas. Sin pago anticipado.
               </p>
             </div>
 

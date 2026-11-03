@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { HEADER_CONTAINER, HeaderLogo, BackButton, HeaderIconButton } from '../components/HeaderParts';
-import { Salon, ActiveScreen } from '../types';
+import { Look, Salon, ActiveScreen } from '../types';
 import { CityMap } from '../components/CityMap';
-import { SocialProofRow } from '../components/SocialProofRow';
-import { LOOKS_DATA } from '../data/mockData';
 
 interface SalonProfileViewProps {
   salon: Salon;
+  /** Trabajos publicados por todos los comercios (para abrir el detalle de un servicio). */
+  looks: Look[];
   initialTab?: string;
   onNavigate: (screen: ActiveScreen) => void;
   onBack: () => void;
@@ -25,6 +25,7 @@ interface SalonProfileViewProps {
 
 export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
   salon,
+  looks,
   initialTab = 'trabajos',
   onNavigate,
   onBack,
@@ -37,16 +38,9 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
   const [activeTab, setActiveTab] = useState<'trabajos' | 'clientes' | 'servicios' | 'resenas' | 'ubicacion'>(
     (initialTab as any) || 'trabajos'
   );
-  const [isFollowing, setIsFollowing] = useState(false);
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
   const [favWorks, setFavWorks] = useState<string[]>([]);
-
-  const handleFollowToggle = () => {
-    const next = !isFollowing;
-    setIsFollowing(next);
-    onShowToast(next ? `Ahora sigues a ${salon.name}` : `Dejaste de seguir a ${salon.name}`, 'person');
-  };
 
   const toggleFavWork = (workId: string) => {
     setFavWorks((prev) =>
@@ -77,7 +71,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
     const norm = (t: string) =>
       t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     const words = norm(serv.name).split(/[^a-z0-9]+/).filter((w) => w.length > 3);
-    const candidates = LOOKS_DATA.filter((l) => l.salonId === salon.id);
+    const candidates = looks.filter((l) => l.salonId === salon.id);
     const scored = candidates
       .map((l) => ({
         look: l,
@@ -137,9 +131,9 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
               </div>
               <div className="flex flex-col">
                 <span className="text-base sm:text-lg font-semibold text-[#111111] leading-tight">
-                  {salon.followersCount}
+                  {salon.services.length}
                 </span>
-                <span className="text-[11px] sm:text-xs text-[#6B6B6B]">Seguidoras</span>
+                <span className="text-[11px] sm:text-xs text-[#6B6B6B]">Servicios</span>
               </div>
               <button
                 type="button"
@@ -147,9 +141,11 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
                 className="flex flex-col"
               >
                 <span className="text-base sm:text-lg font-semibold text-[#111111] leading-tight">
-                  {salon.rating.toFixed(1)} ★
+                  {salon.reviewsCount > 0 ? `${salon.rating.toFixed(1)} ★` : 'Nuevo'}
                 </span>
-                <span className="text-[11px] sm:text-xs text-[#6B6B6B]">{salon.reviewsCount} reseñas</span>
+                <span className="text-[11px] sm:text-xs text-[#6B6B6B]">
+                  {salon.reviewsCount > 0 ? `${salon.reviewsCount} reseñas` : 'Sin reseñas aún'}
+                </span>
               </button>
             </div>
           </div>
@@ -178,8 +174,6 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
             </span>
           </button>
 
-          <SocialProofRow followers={salon.mutualFollowers} onNavigate={onNavigate} />
-
           <div className="mt-4 flex items-center gap-2">
             <button
               type="button"
@@ -189,25 +183,6 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
               className="flex-1 h-10 rounded-lg bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] text-sm font-semibold transition-colors"
             >
               Reservar turno
-            </button>
-            <button
-              type="button"
-              onClick={handleFollowToggle}
-              className={`h-10 px-5 rounded-lg text-sm font-semibold transition-colors ${
-                isFollowing
-                  ? 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
-                  : 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
-              }`}
-            >
-              {isFollowing ? 'Siguiendo' : 'Seguir'}
-            </button>
-            <button
-              type="button"
-              onClick={() => onOpenChat(salon)}
-              aria-label="Enviar mensaje"
-              className="w-10 h-10 rounded-lg bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center hover:bg-[#FBD5E2] transition-colors"
-            >
-              <span className="material-symbols-outlined text-[20px]">chat_bubble</span>
             </button>
           </div>
         </section>

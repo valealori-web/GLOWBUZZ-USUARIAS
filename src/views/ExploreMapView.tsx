@@ -44,7 +44,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
   userLocation,
 }) => {
   const [selectedPinId, setSelectedPinId] = useState<string>(
-    initialSalonId || (salons.length > 0 ? salons[0].id : 'studio-velvet-nails')
+    initialSalonId || (salons.length > 0 ? salons[0].id : '')
   );
   const [mobileViewMode, setMobileViewMode] = useState<'map' | 'list'>('map');
   const [searchQuery, setSearchQuery] = useState('');
@@ -189,7 +189,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Buscar salones, Pocitos, Carrasco, uñas, balayage..."
+                  placeholder="Buscar salones, barrios, uñas..."
                   className="w-full bg-transparent text-[#111111] placeholder:text-[#6B6B6B] text-xs focus:outline-none"
                 />
                 {searchQuery && (
@@ -231,7 +231,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar salones, Pocitos, uñas..."
+              placeholder="Buscar salones, barrios, uñas..."
               className="w-full bg-transparent text-[#111111] placeholder:text-[#6B6B6B] text-xs focus:outline-none"
             />
             {searchQuery && (
@@ -372,8 +372,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                         {salon.neighborhood} · {salon.distance}
                       </p>
                       <p className="text-xs text-[#111111]">
-                        ★ {salon.rating.toFixed(1)}{' '}
-                        <span className="text-[#6B6B6B]">({salon.reviewsCount})</span>
+                        {salon.reviewsCount > 0 ? <>★ {salon.rating.toFixed(1)} </> : <>Nuevo </>}
+                        {salon.reviewsCount > 0 && <span className="text-[#6B6B6B]">({salon.reviewsCount})</span>}
                       </p>
                       <p className="text-xs text-[#6B6B6B] truncate">Próximo turno: {salon.nextSlot}</p>
                       <SocialProofRow followers={salon.mutualFollowers} onNavigate={onNavigate} variant="compact" />
@@ -458,8 +458,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                         {selectedSalon.name}
                       </span>
                       <span className="block text-xs text-[#6B6B6B] truncate">
-                        {selectedSalon.neighborhood} · {selectedSalon.distance} · ★{' '}
-                        {selectedSalon.rating.toFixed(1)}
+                        {selectedSalon.neighborhood} · {selectedSalon.distance} ·{' '}
+                        {selectedSalon.reviewsCount > 0 ? `★ ${selectedSalon.rating.toFixed(1)}` : 'Nuevo'}
                       </span>
                     </span>
                     <span className="material-symbols-outlined text-[20px] text-[#8A8A8A]">
@@ -496,7 +496,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                             {salon.neighborhood} · {salon.distance}
                           </p>
                           <p className="text-xs text-[#111111]">
-                            ★ {salon.rating.toFixed(1)}{' '}
+                            {salon.reviewsCount > 0 ? `★ ${salon.rating.toFixed(1)} ` : 'Nuevo '}
                             <span className="text-[#6B6B6B]">· {salon.nextSlot}</span>
                           </p>
                         </div>

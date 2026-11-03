@@ -336,10 +336,15 @@ export const FeedView: React.FC<FeedViewProps> = ({
             <div className="w-14 h-14 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center mb-3">
               <span className="material-symbols-outlined text-[28px]">search_off</span>
             </div>
-            <h3 className="text-base font-bold text-[#111111]">No se encontraron looks</h3>
+            <h3 className="text-base font-bold text-[#111111]">
+              {looks.length === 0 ? 'Todavía no hay trabajos publicados' : 'No se encontraron looks'}
+            </h3>
             <p className="text-xs text-[#6B6B6B] mt-1.5 leading-relaxed">
-              No hay publicaciones que coincidan con &ldquo;{searchQuery || activeCategory}&rdquo;. Probá buscando &quot;Botox&quot;, &quot;Facial&quot; o &quot;Uñas&quot;.
+              {looks.length === 0
+                ? 'Los comercios que se sumen a GlowBuzz van a publicar sus trabajos acá. Volvé en unos días.'
+                : <>No hay publicaciones que coincidan con &ldquo;{searchQuery || activeCategory}&rdquo;. Probá con otra búsqueda o categoría.</>}
             </p>
+            {looks.length > 0 && (
             <button
               type="button"
               onClick={() => {
@@ -350,6 +355,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
             >
               Ver todas las publicaciones
             </button>
+            )}
           </div>
         )}
       </main>

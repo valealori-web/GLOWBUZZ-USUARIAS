@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { HEADER_CONTAINER, HeaderLogo, NotificationBell, HeaderIconButton } from '../components/HeaderParts';
 import { Look, ActiveScreen, SavedCollection } from '../types';
-import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
-import { USER_AVATAR, INITIAL_SAVED_COLLECTIONS, BEAUTY_INTERESTS_LIST } from '../data/mockData';
-import { P } from '../data/images';
+import { monogram } from '../data/images';
 import { AccountSettingsModal } from '../components/AccountSettingsModal';
-import { FollowersListModal } from '../components/FollowersListModal';
-import { UploadLookModal } from '../components/UploadLookModal';
+import { LiveReservations } from '../components/LiveReservations';
+import { useCurrentUser } from '../context/AuthContext';
 
 interface ProfileViewProps {
   looks: Look[];
@@ -24,6 +22,8 @@ interface ProfileViewProps {
   onOpenLightbox?: (imageUrl: string, caption?: string) => void;
   onShowToast: (msg: string, icon?: string) => void;
   unreadCount: number;
+  /** Nombre de cada comercio por id, para mostrar las reservas. */
+  salonNames?: Record<string, string>;
 }
 
 interface UserPhoto {
@@ -45,77 +45,18 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   onOpenLightbox,
   onShowToast,
   unreadCount,
+  salonNames = {},
 }) => {
-  const [activeTab, setActiveTab] = useState<'guardados' | 'reservas' | 'fotos' | 'resenas'>(
-    (initialTab as any) || 'guardados'
-  );
-  const [collections, setCollections] = useState<SavedCollection[]>(INITIAL_SAVED_COLLECTIONS);
+  const me = useCurrentUser();
+  const [activeTab, setActiveTab] = useState<'guardados' | 'reservas'>(initialTab === 'reservas' ? 'reservas' : 'guardados');
+  const [collections, setCollections] = useState<SavedCollection[]>([]);
   const [selectedCollection, setSelectedCollection] = useState<string | null>(null);
-  const [bioText, setBioText] = useState(
-    'Amante del skincare, el balayage cálido y nail art minimalista ✨ Montevideo'
-  );
-  const [isEditingBio, setIsEditingBio] = useState(false);
-  const [interests, setInterests] = useState<string[]>(['nails', 'hair_color', 'brows']);
-  const [draftInterests, setDraftInterests] = useState<string[]>(interests);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Modals state
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isFollowersOpen, setIsFollowersOpen] = useState(false);
-  const [followersTab, setFollowersTab] = useState<'following' | 'followers'>('following');
-  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [isNewFolderModalOpen, setIsNewFolderModalOpen] = useState(false);
   const [newFolderName, setNewFolderName] = useState('');
   const [newFolderFilterKey, setNewFolderFilterKey] = useState('Uñas');
-
-  // User Photos State
-  const [userPhotos, setUserPhotos] = useState<UserPhoto[]>([
-    {
-      id: 'photo-1',
-      url: P.c15,
-      caption: 'Lifting y nutrición de pestañas en Brow Bar Atelier',
-      rating: 4.9,
-      treatment: 'Lifting de pestañas',
-      salonName: 'Brow Bar Atelier',
-    },
-    {
-      id: 'photo-2',
-      url: P.u04,
-      caption: 'Kapping Gel Cherry wine en Studio Velvet Nails',
-      rating: 5.0,
-      treatment: 'Kapping Gel Cherry',
-      salonName: 'Studio Velvet Nails',
-    },
-    {
-      id: 'photo-3',
-      url: P.u02,
-      caption: 'Ondas con movimiento post-baño de brillo en Maison Hair Co.',
-      rating: 5.0,
-      treatment: 'Balayage & Styling',
-      salonName: 'Maison Hair Co. Studio',
-    },
-  ]);
-
-  // Handle uploaded look
-  const handleAddLook = (newLook: {
-    imageUrl: string;
-    caption: string;
-    salonName: string;
-    salonId: string;
-    treatment: string;
-    rating: number;
-  }) => {
-    const item: UserPhoto = {
-      id: `photo-${Date.now()}`,
-      url: newLook.imageUrl,
-      caption: newLook.caption,
-      rating: newLook.rating,
-      treatment: newLook.treatment,
-      salonName: newLook.salonName,
-    };
-    setUserPhotos((prev) => [item, ...prev]);
-  };
 
   // Handle create new private collection folder
   const handleCreateNewFolder = (e: React.FormEvent) => {
@@ -152,26 +93,13 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   const tabs: { id: typeof activeTab; icon: string; label: string; count?: number }[] = [
     { id: 'guardados', icon: 'bookmark', label: 'Guardados', count: savedLooks.length },
     { id: 'reservas', icon: 'event_available', label: 'Reservas' },
-    { id: 'fotos', icon: 'photo_camera', label: 'Mis fotos', count: userPhotos.length },
-    { id: 'resenas', icon: 'rate_review', label: 'Reseñas' },
   ];
 
   const menuItems = [
     {
       icon: 'settings',
-      label: 'Configuración de la cuenta',
+      label: 'Mi cuenta',
       onClick: () => setIsSettingsOpen(true),
-    },
-    {
-      icon: 'stars',
-      label: 'Puntos Glow',
-      hint: '1.240 puntos',
-      onClick: () => onNavigate({ name: 'loyalty' }),
-    },
-    {
-      icon: 'add_a_photo',
-      label: 'Subir un look',
-      onClick: () => setIsUploadModalOpen(true),
     },
     {
       icon: 'create_new_folder',
@@ -197,173 +125,30 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       </header>
 
       <main className="flex-1 flex flex-col w-full pt-16 max-w-3xl mx-auto">
-        {/* Avatar + stats */}
+        {/* Avatar + datos de la cuenta */}
         <section className="px-5 pt-5">
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-5">
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-[#F1F1F1] shrink-0">
-              <img alt="Valentina Rossi" className="w-full h-full object-cover" src={USER_AVATAR} />
+              <img alt={me.name} className="w-full h-full object-cover" src={monogram(me.name)} />
             </div>
-
-            <div className="flex-1 grid grid-cols-3 text-center">
-              <button
-                type="button"
-                onClick={() => setActiveTab('fotos')}
-                className="flex flex-col items-center py-1 rounded-lg hover:bg-[#F7F7F7] transition-colors"
-              >
-                <span className="text-lg font-semibold text-[#111111] leading-tight">
-                  {userPhotos.length}
-                </span>
-                <span className="text-xs text-[#6B6B6B]">Looks</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setFollowersTab('followers');
-                  setIsFollowersOpen(true);
-                }}
-                className="flex flex-col items-center py-1 rounded-lg hover:bg-[#F7F7F7] transition-colors"
-              >
-                <span className="text-lg font-semibold text-[#111111] leading-tight">380</span>
-                <span className="text-xs text-[#6B6B6B]">Seguidores</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setFollowersTab('following');
-                  setIsFollowersOpen(true);
-                }}
-                className="flex flex-col items-center py-1 rounded-lg hover:bg-[#F7F7F7] transition-colors"
-              >
-                <span className="text-lg font-semibold text-[#111111] leading-tight">142</span>
-                <span className="text-xs text-[#6B6B6B]">Siguiendo</span>
-              </button>
+            <div className="min-w-0 flex-1">
+              <h1 className="text-lg font-bold text-[#111111] truncate">{me.name}</h1>
+              <p className="text-xs text-[#6B6B6B] truncate">{me.email}</p>
+              {me.phone && <p className="text-xs text-[#6B6B6B] truncate">{me.phone}</p>}
             </div>
           </div>
-
-          {/* Name, handle, bio */}
-          <div className="mt-4">
-            <h1 className="text-sm font-semibold text-[#111111]">Valentina Rossi</h1>
-            <p className="text-xs text-[#6B6B6B]">@valen.glow</p>
-            {!isEditingBio && (
-              <p className="text-sm text-[#111111] mt-2 leading-snug max-w-2xl">{bioText}</p>
-            )}
-          </div>
-
-          {/* Edit profile */}
-          {isEditingBio ? (
-            <div className="mt-4 flex flex-col gap-4 p-4 rounded-2xl border border-[#E5E5E5]">
-              <label className="flex flex-col gap-1.5">
-                <span className="text-xs font-medium text-[#6B6B6B]">Biografía</span>
-                <textarea
-                  value={bioText}
-                  onChange={(e) => setBioText(e.target.value)}
-                  className="w-full text-sm p-3 rounded-xl border border-[#E5E5E5] bg-white text-[#111111] focus:outline-none focus:border-[#111111] resize-none"
-                  rows={3}
-                />
-              </label>
-
-              <div className="flex flex-col gap-2">
-                <span className="text-xs font-medium text-[#6B6B6B]">Intereses</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {BEAUTY_INTERESTS_LIST.map((item) => {
-                    const active = draftInterests.includes(item.id);
-                    return (
-                      <button
-                        key={item.id}
-                        type="button"
-                        aria-pressed={active}
-                        onClick={() =>
-                          setDraftInterests((prev) =>
-                            active ? prev.filter((i) => i !== item.id) : [...prev, item.id]
-                          )
-                        }
-                        className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                          active
-                            ? 'bg-[#FDE7EE] text-[#B82E5F]'
-                            : 'bg-white text-[#444444] border border-[#E5E5E5] hover:border-[#111111]'
-                        }`}
-                      >
-                        {item.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => setIsEditingBio(false)}
-                  className="flex-1 h-9 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-sm font-semibold hover:bg-[#FBD5E2] transition-colors"
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setInterests(draftInterests);
-                    setIsEditingBio(false);
-                    onShowToast('Perfil actualizado', 'check');
-                  }}
-                  className="flex-1 h-9 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-sm font-semibold hover:bg-[#FBD5E2] transition-colors"
-                >
-                  Guardar
-                </button>
-              </div>
-            </div>
-          ) : (
-            <button
-              type="button"
-              onClick={() => {
-                setDraftInterests(interests);
-                setIsEditingBio(true);
-              }}
-              className="mt-4 w-full h-9 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-sm font-semibold hover:bg-[#FBD5E2] transition-colors"
-            >
-              Editar perfil
-            </button>
-          )}
-        </section>
-
-        {/* Next appointment + loyalty */}
-        <section className="px-5 mt-4 flex flex-col gap-2">
           <button
             type="button"
-            onClick={() => onNavigate({ name: 'reservations' })}
-            className="w-full flex items-center gap-3 p-3 rounded-xl border border-[#E5E5E5] hover:bg-[#F7F7F7] transition-colors text-left"
+            onClick={() => setIsSettingsOpen(true)}
+            className="mt-4 w-full h-9 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-sm font-semibold hover:bg-[#FBD5E2] transition-colors"
           >
-<span className="w-10 h-10 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-[22px]">calendar_clock</span>
-            </span>
-            <span className="flex-1 min-w-0">
-              <span className="block text-xs text-[#6B6B6B]">Próxima cita · En 3 días</span>
-              <span className="block text-sm font-medium text-[#111111] truncate">
-                Maison Hair Co. · Mar 24, 15:30
-              </span>
-            </span>
-            <span className="material-symbols-outlined text-[20px] text-[#8A8A8A]">
-              chevron_right
-            </span>
-          </button>
-          <button
-            type="button"
-            onClick={() => onNavigate({ name: 'loyalty' })}
-            className="w-full flex items-center gap-3 p-3 rounded-xl bg-[#571C31] hover:bg-[#3E1222] transition-colors text-left"
-          >
-            <span className="w-10 h-10 rounded-full bg-white/10 text-[#FFC83D] flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-[22px]">stars</span>
-            </span>
-            <span className="flex-1 min-w-0">
-              <span className="block text-xs text-[#F5DCE5]/80">Puntos Glow</span>
-              <span className="block text-sm font-bold text-white">1.240 puntos</span>
-            </span>
-            <span className="material-symbols-outlined text-[20px] text-[#F5DCE5]/70">chevron_right</span>
+            Editar perfil
           </button>
         </section>
 
         {/* Tabs (icons, Instagram-style) */}
         <nav
-          className="mt-5 sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-[#EFEFEF] grid grid-cols-4"
+          className="mt-5 sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-[#EFEFEF] grid grid-cols-2"
           role="tablist"
         >
           {tabs.map((tab) => {
@@ -516,193 +301,10 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           </div>
         )}
 
-        {/* TAB 2: Mis Reservas */}
+        {/* TAB 2: Mis reservas */}
         {activeTab === 'reservas' && (
-          <div className="px-5 pt-4 pb-8 flex flex-col gap-3">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-[#111111]">Historial de Visitas</h3>
-              <span className="text-[11px] text-[#6B6B6B]">3 completadas en 2024</span>
-            </div>
-
-            {/* Past Booking 1 */}
-            <div className="bg-white p-4 rounded-2xl border border-[#E5E5E5] flex flex-col gap-2 shadow-xs">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#FDE7EE] flex items-center justify-center text-[#B82E5F] font-bold">
-                    <span className="material-symbols-outlined text-[20px]">content_cut</span>
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-[#111111]">
-                      Corte Bob Texturado &amp; Baño de Brillo
-                    </h4>
-                    <p className="text-[11px] text-[#6B6B6B]">
-                      Maison Hair Co. · Atendido por Lucas
-                    </p>
-                  </div>
-                </div>
-                <span className="bg-[#F1F1F1] text-[#444444] text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">
-                  Completado
-                </span>
-              </div>
-              <div className="flex items-center justify-between pt-2 border-t border-[#F4F4F4] text-xs text-[#444444]">
-                <span>12 Sep 2024 · 17:00 hs</span>
-                <button
-                  type="button"
-                  onClick={() =>
-                    onOpenBooking({
-                      salonName: 'Maison Hair Co. Studio',
-                      serviceName: 'Corte Bob Texturado',
-                      price: '$ 1.600',
-                      slot: 'Próxima semana',
-                      provider: 'Fresha',
-                    })
-                  }
-                  className="text-[#111111] font-semibold hover:underline"
-                >
-                  Volver a reservar
-                </button>
-              </div>
-            </div>
-
-            {/* Past Booking 2 */}
-            <div className="bg-white p-4 rounded-2xl border border-[#E5E5E5] flex flex-col gap-2 shadow-xs">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#FDE7EE] flex items-center justify-center text-[#B82E5F] font-bold">
-                    <span className="material-symbols-outlined text-[20px]">brush</span>
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-[#111111]">
-                      Kapping Gel + Esmaltado Semipermanente
-                    </h4>
-                    <p className="text-[11px] text-[#6B6B6B]">
-                      Studio Velvet Nails · Atendido por Camila
-                    </p>
-                  </div>
-                </div>
-                <span className="bg-[#F1F1F1] text-[#444444] text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">
-                  Completado
-                </span>
-              </div>
-              <div className="flex items-center justify-between pt-2 border-t border-[#F4F4F4] text-xs text-[#444444]">
-                <span>28 Ago 2024 · 14:00 hs</span>
-                <button
-                  type="button"
-                  onClick={() =>
-                    onOpenBooking({
-                      salonName: 'Studio Velvet Nails',
-                      serviceName: 'Kapping Gel + Esmaltado',
-                      price: '$ 1.450',
-                      slot: 'Próximo viernes',
-                      provider: 'Timely',
-                    })
-                  }
-                  className="text-[#111111] font-semibold hover:underline"
-                >
-                  Volver a reservar
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* TAB 3: Mis Fotos Subidas (Functional Subir look + Lightbox Zoom) */}
-        {activeTab === 'fotos' && (
-          <div className="px-5 pt-4 pb-8 flex flex-col gap-4">
-            <div className="bg-[#F1F1F1] text-[#111111] p-4 rounded-2xl flex items-center justify-between shadow-xs">
-              <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#111111] text-[24px]">
-                  verified_user
-                </span>
-                <div>
-                  <h4 className="text-xs font-bold">Comunidad Verificada</h4>
-                  <p className="text-[11px] text-[#444444]">
-                    Tus fotos ayudan a otras a elegir su estilista ideal.
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsUploadModalOpen(true)}
-                className="px-3.5 py-1.5 bg-[#FDE7EE] text-[#B82E5F] rounded-full text-xs font-bold shadow-xs hover:opacity-90 active:scale-95 transition-transform shrink-0"
-              >
-                Subir look
-              </button>
-            </div>
-
-            {/* Photo Grid with Zoom Lightbox Click */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5 md:gap-3">
-              {userPhotos.map((photo) => (
-                <div
-                  key={photo.id}
-                  onClick={() => onOpenLightbox?.(photo.url, photo.caption)}
-                  className="aspect-square rounded-2xl overflow-hidden bg-[#F1F1F1] relative shadow-xs cursor-pointer group hover:scale-102 transition-transform"
-                >
-                  <img
-                    src={photo.url}
-                    alt={photo.caption}
-                    className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
-                  />
-                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-white">
-                    <span className="material-symbols-outlined text-[18px]">zoom_in</span>
-                  </div>
-                  <span className="absolute bottom-1 right-1 text-white text-[9px] bg-black/60 backdrop-blur-xs px-1.5 py-0.5 rounded-full font-bold">
-                    {photo.rating.toFixed(1)} ★
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* TAB 4: Mis Reseñas */}
-        {activeTab === 'resenas' && (
-          <div className="px-5 pt-4 pb-8 flex flex-col gap-3">
-            <div className="bg-white p-4 rounded-2xl border border-[#E5E5E5] flex flex-col gap-1.5 shadow-xs">
-              <div className="flex items-center justify-between">
-                <h4 className="text-xs font-bold text-[#111111]">Maison Hair Co. Studio</h4>
-                <div className="flex text-amber-500">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className="material-symbols-outlined text-[15px]"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      star
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <p className="text-xs text-[#444444] leading-relaxed">
-                &ldquo;Lucas entendió exactamente el tono de balayage cálido que quería sin maltratar mi pelo. El servicio de café y el masaje capilar fueron un 10. ¡Vuelvo siempre!&rdquo;
-              </p>
-              <span className="text-[10px] text-[#6B6B6B] mt-1">
-                Septiembre 2024 · Servicio Verificado
-              </span>
-            </div>
-
-            <div className="bg-white p-4 rounded-2xl border border-[#E5E5E5] flex flex-col gap-1.5 shadow-xs">
-              <div className="flex items-center justify-between">
-                <h4 className="text-xs font-bold text-[#111111]">Studio Velvet Nails</h4>
-                <div className="flex text-amber-500">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className="material-symbols-outlined text-[15px]"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      star
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <p className="text-xs text-[#444444] leading-relaxed">
-                &ldquo;El kapping quedó impecable y duró más de 3 semanas sin saltarse. Muy detallistas con la cutícula rusa.&rdquo;
-              </p>
-              <span className="text-[10px] text-[#6B6B6B] mt-1">
-                Agosto 2024 · Servicio Verificado
-              </span>
-            </div>
+          <div className="px-5 pt-2 pb-8">
+            <LiveReservations salonNames={salonNames} />
           </div>
         )}
       </main>
@@ -734,7 +336,6 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   <span className="material-symbols-outlined text-[22px]">{item.icon}</span>
                 </span>
                 <span className="flex-1 text-sm font-medium text-[#111111]">{item.label}</span>
-                {item.hint && <span className="text-xs text-[#6B6B6B]">{item.hint}</span>}
               </button>
             ))}
           </div>
@@ -745,23 +346,6 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       <AccountSettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
-        onShowToast={onShowToast}
-      />
-
-      {/* Followers & Following Modal */}
-      <FollowersListModal
-        isOpen={isFollowersOpen}
-        initialTab={followersTab}
-        onClose={() => setIsFollowersOpen(false)}
-        onNavigate={onNavigate}
-        onShowToast={onShowToast}
-      />
-
-      {/* Upload Look Modal */}
-      <UploadLookModal
-        isOpen={isUploadModalOpen}
-        onClose={() => setIsUploadModalOpen(false)}
-        onUploadLook={handleAddLook}
         onShowToast={onShowToast}
       />
 

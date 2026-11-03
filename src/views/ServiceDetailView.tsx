@@ -406,8 +406,10 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                     <span className="text-3xl font-extrabold text-white">{look.price}</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-sm font-bold text-[#FFC83D]">★ {look.rating}</span>
-                    <span className="block text-[11px] text-[#F5DCE5]/80">{look.reviewsCount} reseñas</span>
+                    <span className="text-sm font-bold text-[#FFC83D]">{look.reviewsCount > 0 ? `★ ${look.rating}` : 'Nuevo'}</span>
+                    <span className="block text-[11px] text-[#F5DCE5]/80">
+                      {look.reviewsCount > 0 ? `${look.reviewsCount} reseñas` : 'Sin reseñas aún'}
+                    </span>
                   </div>
                 </div>
 
@@ -486,8 +488,10 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                           });
                         }}
                       >
-                        <span className="font-bold text-amber-600">★ {salon.rating.toFixed(1)}</span>
-                        <span className="text-[#6B6B6B]">· {salon.reviewsCount} reseñas</span>
+                        <span className="font-bold text-amber-600">
+                          {salon.reviewsCount > 0 ? `★ ${salon.rating.toFixed(1)}` : 'Nuevo'}
+                        </span>
+                        {salon.reviewsCount > 0 && <span className="text-[#6B6B6B]">· {salon.reviewsCount} reseñas</span>}
                       </div>
                     </div>
                   </div>
