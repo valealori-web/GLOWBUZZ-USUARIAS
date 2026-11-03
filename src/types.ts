@@ -8,6 +8,8 @@ export type LookCategory =
 
 export interface Look {
   id: string;
+  /** Servicio del comercio conectado al que corresponde este trabajo. */
+  liveServiceId?: string;
   title: string;
   category: LookCategory;
   categoryLabel: string;
@@ -139,6 +141,40 @@ export interface SalonData {
   }[];
   nextSlot: string;
   externalBookingProvider: 'Fresha' | 'Timely' | 'Calendly' | 'WhatsApp';
+  /** Solo para comercios conectados a GlowBuzz Business: permite reservar directo en su agenda. */
+  live?: {
+    businessId: string;
+    hours: LiveHour[];
+    services: LiveService[];
+  };
+}
+
+export interface LiveHour {
+  day: string;
+  open: string;
+  close: string;
+  active: boolean;
+}
+
+export interface LiveService {
+  id: string;
+  name: string;
+  professionalId: string;
+  professionalName: string;
+  durationMinutes: number;
+  priceUYU: number;
+}
+
+/** Reserva hecha desde esta app en la agenda de un comercio conectado. */
+export interface LiveBooking {
+  id: string;
+  businessId: string;
+  serviceName: string;
+  professionalName: string;
+  date: string;
+  time: string;
+  priceUYU: number;
+  status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
 }
 
 /** Salón enriquecido con la distancia al usuario (calculada en runtime). */

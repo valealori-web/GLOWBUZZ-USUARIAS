@@ -98,10 +98,13 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
     );
   };
 
+  const isLive = Boolean(salon.live);
+
   const handleBookingClick = () => {
+    const liveService = look.liveServiceId ? salon.live?.services.find((s) => s.id === look.liveServiceId) : undefined;
     onOpenBooking({
       salonName: salon.name,
-      serviceName: look.title,
+      serviceName: liveService?.name ?? look.title,
       stylistName: look.stylistName || 'Equipo técnico',
       price: look.specs.estimatedPrice || look.price,
       slot: selectedSlot,
@@ -408,7 +411,8 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                   </div>
                 </div>
 
-                {/* Slot Selector */}
+                {/* Slot Selector (comercios conectados: el día y la hora se eligen al reservar) */}
+                {!isLive && (
                 <div className="mt-2 flex flex-col gap-1.5">
                   <span className="text-xs font-bold text-[#111111]">Elegí fecha y horario:</span>
                   <div className="grid grid-cols-2 gap-2">
@@ -434,6 +438,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                     )}
                   </div>
                 </div>
+                )}
 
                 {/* Primary Booking Button */}
                 <button
@@ -533,9 +538,9 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
       <div className="fixed bottom-16 left-0 right-0 z-30 bg-[#FFFFFF]/95 backdrop-blur-md border-t border-[#F1F1F1] px-4 py-2.5 shadow-[0_-4px_12px_rgba(17,17,17,0.06)] md:hidden">
         <div className="max-w-md mx-auto flex items-center gap-3">
           <div className="flex flex-col min-w-0">
-            <span className="text-[10px] uppercase font-bold text-[#6B6B6B]">Turno elegido</span>
+            <span className="text-[10px] uppercase font-bold text-[#6B6B6B]">{isLive ? 'Reserva directa' : 'Turno elegido'}</span>
             <span className="text-xs font-bold text-[#111111] truncate max-w-[130px]">
-              {selectedSlot}
+              {isLive ? 'Elegí día y hora' : selectedSlot}
             </span>
           </div>
 

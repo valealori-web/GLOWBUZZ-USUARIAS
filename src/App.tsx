@@ -3,11 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ActiveScreen, Look, Salon } from './types';
 import { distanceKm, formatDistance } from './lib/geo';
 import { useUserLocation } from './lib/useUserLocation';
 import { LOOKS_DATA, SALONS_DATA, INITIAL_NOTIFICATIONS, OTHER_USERS_DATA } from './data/mockData';
+import { LiveCatalog, fetchLiveCatalog } from './lib/liveData';
+import { LiveBookingModal } from './components/LiveBookingModal';
 import { LoyaltyView } from './views/LoyaltyView';
 import { BottomNavBar } from './components/BottomNavBar';
 import { Toast } from './components/Toast';
@@ -33,16 +35,32 @@ export default function App() {
   const [history, setHistory] = useState<ActiveScreen[]>([]);
 
   // Application Data & Interactive States
-  const [looks] = useState<Look[]>(LOOKS_DATA);
+  // Comercios conectados a GlowBuzz Business (se cargan desde Supabase y se suman a los de ejemplo)
+  const [liveCatalog, setLiveCatalog] = useState<LiveCatalog | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      const catalog = await fetchLiveCatalog();
+      if (catalog && !cancelled) setLiveCatalog(catalog);
+    };
+    void load();
+    const interval = setInterval(load, 30000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, []);
+
+  const looks = useMemo<Look[]>(() => [...(liveCatalog?.looks ?? []), ...LOOKS_DATA], [liveCatalog]);
   const userLocation = useUserLocation();
   const salons = useMemo(() => {
     const result: Record<string, Salon> = {};
-    for (const [id, data] of Object.entries(SALONS_DATA)) {
+    for (const [id, data] of Object.entries({ ...SALONS_DATA, ...(liveCatalog?.salons ?? {}) })) {
       const km = distanceKm(userLocation.position, data.coordinates);
       result[id] = { ...data, distanceKm: km, distance: formatDistance(km) };
     }
     return result;
-  }, [userLocation.position]);
+  }, [userLocation.position, liveCatalog]);
   const [savedLookIds, setSavedLookIds] = useState<string[]>([
     'look-kapping-cherry',
     'look-balayage-vainilla',
@@ -199,6 +217,9 @@ export default function App() {
 
   const unreadNotificationsCount = notifications.filter((n) => n.unread).length;
 
+  // Reserva directa en comercios conectados a GlowBuzz Business
+  const [liveBooking, setLiveBooking] = useState<{ salonId: string; serviceName?: string } | null>(null);
+
   // Open external booking handover modal
   const handleOpenBooking = (details: {
     salonName: string;
@@ -208,6 +229,11 @@ export default function App() {
     slot: string;
     provider?: 'Fresha' | 'Timely' | 'Calendly' | 'WhatsApp';
   }) => {
+    const liveSalon = Object.values(salons).find((salon) => salon.live && salon.name === details.salonName);
+    if (liveSalon) {
+      setLiveBooking({ salonId: liveSalon.id, serviceName: details.serviceName });
+      return;
+    }
     setBookingData({
       isOpen: true,
       ...details,
@@ -344,6 +370,7 @@ export default function App() {
             onOpenBooking={handleOpenBooking}
             onShowToast={showToast}
             unreadCount={unreadNotificationsCount}
+            salonNames={Object.fromEntries(Object.values(salons).map((salon) => [salon.id, salon.name]))}
           />
         )}
       </div>
@@ -356,6 +383,16 @@ export default function App() {
       />
 
       {/* Simulated External Booking Handover Modal */}
+      {liveBooking && salons[liveBooking.salonId] && (
+        <LiveBookingModal
+          isOpen
+          onClose={() => setLiveBooking(null)}
+          salon={salons[liveBooking.salonId]}
+          serviceName={liveBooking.serviceName}
+          onBooked={({ service, salon }) => showToast(`Reserva enviada: ${service} en ${salon}`, 'event_available')}
+        />
+      )}
+
       <ExternalBookingModal
         isOpen={bookingData.isOpen}
         onClose={() => setBookingData((prev) => ({ ...prev, isOpen: false }))}

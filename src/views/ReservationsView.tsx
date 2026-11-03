@@ -3,6 +3,7 @@ import { SALONS_DATA } from '../data/mockData';
 import { HEADER_CONTAINER, HeaderLogo, NotificationBell } from '../components/HeaderParts';
 import { ActiveScreen } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
+import { LiveReservations } from '../components/LiveReservations';
 
 interface ReservationsViewProps {
   onNavigate: (screen: ActiveScreen) => void;
@@ -15,6 +16,8 @@ interface ReservationsViewProps {
   }) => void;
   onShowToast: (msg: string, icon?: string) => void;
   unreadCount: number;
+  /** Nombre de cada comercio por id (incluye los conectados a GlowBuzz Business). */
+  salonNames?: Record<string, string>;
 }
 
 export const ReservationsView: React.FC<ReservationsViewProps> = ({
@@ -22,6 +25,7 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
   onOpenBooking,
   onShowToast,
   unreadCount,
+  salonNames = {},
 }) => {
   return (
     <div className="flex flex-col w-full pb-24 bg-[#FFFFFF] min-h-screen">
@@ -43,6 +47,9 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
             1 próxima cita
           </span>
         </div>
+
+        {/* Reservas hechas en comercios conectados a GlowBuzz Business */}
+        <LiveReservations salonNames={salonNames} />
 
         {/* Section 1: Upcoming Appointment */}
         <section className="flex flex-col gap-2.5 mt-2">
