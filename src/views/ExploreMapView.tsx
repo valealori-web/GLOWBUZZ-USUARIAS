@@ -29,6 +29,9 @@ interface ExploreMapViewProps {
   userLocation?: ReturnType<typeof useUserLocation>;
 }
 
+/** En Explorar cada comercio se muestra con uno de sus trabajos (el más visto); si no tiene, con su portada. */
+const workImage = (salon: Salon): string => salon.portfolio?.[0]?.image || salon.coverImage;
+
 export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
   salons,
   looks = [],
@@ -362,7 +365,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                     }`}
                   >
                     <img
-                      src={salon.coverImage}
+                      src={workImage(salon)}
                       alt={salon.name}
                       className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl object-cover shrink-0 bg-[#F1F1F1]"
                     />
@@ -449,7 +452,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                     className="w-full max-w-md mx-auto bg-white rounded-2xl p-3 shadow-lg border border-[#E5E5E5] flex items-center gap-3 text-left"
                   >
                     <img
-                      src={selectedSalon.coverImage}
+                      src={workImage(selectedSalon)}
                       alt=""
                       className="w-14 h-14 rounded-xl object-cover shrink-0 bg-[#F1F1F1]"
                     />
@@ -486,7 +489,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                         }`}
                       >
                         <img
-                          src={salon.coverImage}
+                          src={workImage(salon)}
                           alt={salon.name}
                           className="w-16 h-16 rounded-xl object-cover bg-[#F1F1F1] shrink-0"
                         />
