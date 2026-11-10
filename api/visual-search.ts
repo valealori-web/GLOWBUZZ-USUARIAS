@@ -80,11 +80,11 @@ export default async function handler(req: Req, res: Res) {
 
   try {
     const ai = new GoogleGenAI({ apiKey });
-    const response = await ai.models.generateContent({
+    const request = {
       model: process.env.GEMINI_MODEL || 'gemini-3.8-flash',
       contents: [
         {
-          role: 'user',
+          role: 'user' as const,
           parts: [
             { inlineData: { mimeType: body.mimeType || 'image/jpeg', data: body.image } },
             { text: PROMPT },
@@ -92,7 +92,21 @@ export default async function handler(req: Req, res: Res) {
         },
       ],
       config: { responseMimeType: 'application/json', responseJsonSchema: SCHEMA },
-    });
+    };
+
+    // Si Google está saturado (503) o limita el uso (429), se reintenta unas veces antes de rendirse.
+    let response;
+    for (let attempt = 0; ; attempt++) {
+      try {
+        response = await ai.models.generateContent(request);
+        break;
+      } catch (err) {
+        const status = (err as { status?: number })?.status;
+        const temporary = status === 503 || status === 429 || status === 500;
+        if (!temporary || attempt >= 3) throw err;
+        await new Promise((resolve) => setTimeout(resolve, 1000 * (attempt + 1)));
+      }
+    }
 
     const parsed = JSON.parse(response.text ?? '{}');
     const category = (CATEGORIES as readonly string[]).includes(parsed.category) ? parsed.category : null;
