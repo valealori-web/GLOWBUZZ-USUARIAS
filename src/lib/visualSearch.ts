@@ -1,4 +1,5 @@
 import { Look, Salon } from '../types';
+import { supabase } from './supabase';
 
 export const PHOTO_CATEGORIES = [
   'Uñas',
@@ -47,9 +48,14 @@ export function prepareImage(file: File, max = 768): Promise<{ dataUrl: string; 
 }
 
 export async function analyzePhoto(base64: string): Promise<PhotoSearchResult> {
+  // La función solo responde a usuarias con sesión iniciada.
+  const { data } = await supabase.auth.getSession();
   const res = await fetch('/api/visual-search', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${data.session?.access_token ?? ''}`,
+    },
     body: JSON.stringify({ image: base64, mimeType: 'image/jpeg' }),
   });
   if (!res.ok) throw new Error(`visual_search_${res.status}`);

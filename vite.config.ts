@@ -27,7 +27,7 @@ function localApi(env: Record<string, string>): Plugin {
               res.end(JSON.stringify(payload));
             },
           };
-          await mod.default({method: req.method, body}, shim);
+          await mod.default({method: req.method, body, headers: req.headers}, shim);
         } catch (err) {
           console.error(err);
           res.statusCode = 500;

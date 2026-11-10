@@ -33,14 +33,36 @@ const SCHEMA = {
   required: ['category', 'keywords', 'description'],
 };
 
-type Req = { method?: string; body?: unknown };
+type Req = { method?: string; body?: unknown; headers?: Record<string, string | string[] | undefined> };
 type Res = {
   status: (code: number) => Res;
   json: (body: unknown) => void;
 };
 
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || 'https://czbidhdklnhvsfiwdhfy.supabase.co';
+// Clave pública (anon): la misma que usa la app en el navegador.
+const SUPABASE_ANON_KEY =
+  process.env.VITE_SUPABASE_ANON_KEY ||
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6YmlkaGRrbG5odnNmaXdkaGZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMDU3MDksImV4cCI6MjEwODg4MTcwOX0.jNShiBBt5b44R7fY011d_65AjSKG0dro6xvHHvXa9_g';
+
+/** Solo responde a usuarias con sesión iniciada: Supabase valida el token que manda la app. */
+async function hasValidSession(req: Req): Promise<boolean> {
+  const header = req.headers?.authorization;
+  const token = (Array.isArray(header) ? header[0] : header)?.replace(/^Bearer\s+/i, '');
+  if (!token) return false;
+  try {
+    const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+      headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${token}` },
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
 export default async function handler(req: Req, res: Res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'method_not_allowed' });
+  if (!(await hasValidSession(req))) return res.status(401).json({ error: 'unauthorized' });
 
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey || apiKey === 'MY_GEMINI_API_KEY') {
