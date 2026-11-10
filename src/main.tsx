@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
 import {AuthProvider, useAuth} from './context/AuthContext';
 import {AuthScreens} from './components/AuthScreens';
+import {Analytics} from '@vercel/analytics/react';
 import './index.css';
 
 /** Sin sesión iniciada solo se ve el acceso; con sesión, la app. */
@@ -24,5 +25,6 @@ createRoot(document.getElementById('root')!).render(
     <AuthProvider>
       <Gate />
     </AuthProvider>
+    <Analytics />
   </StrictMode>,
 );
