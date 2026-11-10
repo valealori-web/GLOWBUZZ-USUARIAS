@@ -106,6 +106,6 @@ export default async function handler(req: Req, res: Res) {
     });
   } catch (err) {
     console.error('visual-search failed', err);
-    return res.status(502).json({ error: 'analysis_failed' });
+    return res.status(502).json({ error: 'analysis_failed', detail: String((err as Error)?.message ?? err).slice(0, 160) });
   }
 }

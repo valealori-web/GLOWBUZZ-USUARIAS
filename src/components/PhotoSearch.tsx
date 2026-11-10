@@ -22,8 +22,9 @@ export function usePhotoSearch() {
         } else {
           setState({ status: 'done', preview: dataUrl, result });
         }
-      } catch {
-        setState({ status: 'manual', preview: dataUrl });
+      } catch (error) {
+        console.warn('Búsqueda por foto:', error);
+        setState({ status: 'manual', preview: dataUrl, reason: error instanceof Error ? error.message : String(error) });
       }
     } catch {
       setState({ status: 'idle' });
@@ -106,6 +107,7 @@ export const PhotoSearchBanner: React.FC<{
             <p className="text-xs text-[#571C31]/70 mt-0.5">
               No pudimos reconocer la foto automáticamente. Elegí una categoría.
             </p>
+            {state.reason && <p className="text-[10px] text-[#571C31]/50 mt-1 break-words">Motivo técnico: {state.reason}</p>}
             <div className="mt-2 flex flex-wrap gap-1.5">
               {PHOTO_CATEGORIES.map((c) => (
                 <button

@@ -21,7 +21,7 @@ export type PhotoSearchState =
   | { status: 'loading'; preview: string }
   | { status: 'done'; preview: string; result: PhotoSearchResult }
   /** El análisis automático no estuvo disponible: se le pide a la persona elegir la categoría. */
-  | { status: 'manual'; preview: string };
+  | { status: 'manual'; preview: string; reason?: string };
 
 /** Reduce la foto (máx. 768 px) para enviarla liviana y devuelve data URL + base64. */
 export function prepareImage(file: File, max = 768): Promise<{ dataUrl: string; base64: string }> {
@@ -58,7 +58,10 @@ export async function analyzePhoto(base64: string): Promise<PhotoSearchResult> {
     },
     body: JSON.stringify({ image: base64, mimeType: 'image/jpeg' }),
   });
-  if (!res.ok) throw new Error(`visual_search_${res.status}`);
+  if (!res.ok) {
+    const body = (await res.json().catch(() => ({}))) as { error?: string; detail?: string };
+    throw new Error(`${res.status} ${body.error ?? ''} ${body.detail ?? ''}`.trim());
+  }
   return (await res.json()) as PhotoSearchResult;
 }
 
