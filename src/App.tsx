@@ -190,26 +190,47 @@ export default function App() {
   };
 
   // Navigation handlers
+  // Cada pantalla suma una entrada al historial del navegador: así el botón "atrás" y el deslizar
+  // hacia el costado en el celular vuelven a la pantalla anterior en vez de salir de GlowBuzz.
+  type NavEntry = { gb: 1; screen: ActiveScreen; stack: ActiveScreen[] };
+
+  useEffect(() => {
+    const entry: NavEntry = { gb: 1, screen: { name: 'feed' }, stack: [] };
+    window.history.replaceState(entry, '');
+    const onPop = (event: PopStateEvent) => {
+      const saved = event.state as NavEntry | null;
+      if (!saved || saved.gb !== 1) return;
+      setCurrentScreen(saved.screen);
+      setHistory(saved.stack);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
   const handleNavigate = (nextScreen: ActiveScreen) => {
     if (nextScreen.name === currentScreen.name) {
       // If same root tab, update parameters or scroll top
       setCurrentScreen(nextScreen);
+      window.history.replaceState({ gb: 1, screen: nextScreen, stack: history } satisfies NavEntry, '');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    setHistory((prev) => [...prev, currentScreen]);
+    const stack = [...history, currentScreen];
+    setHistory(stack);
     setCurrentScreen(nextScreen);
+    window.history.pushState({ gb: 1, screen: nextScreen, stack } satisfies NavEntry, '');
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleBack = () => {
     if (history.length > 0) {
-      const prevScreen = history[history.length - 1];
-      setHistory((prev) => prev.slice(0, prev.length - 1));
-      setCurrentScreen(prevScreen);
-    } else {
-      setCurrentScreen({ name: 'feed' });
+      // El historial del navegador restaura la pantalla anterior (ver el listener de popstate).
+      window.history.back();
+      return;
     }
+    setCurrentScreen({ name: 'feed' });
+    window.history.replaceState({ gb: 1, screen: { name: 'feed' }, stack: [] } satisfies NavEntry, '');
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 

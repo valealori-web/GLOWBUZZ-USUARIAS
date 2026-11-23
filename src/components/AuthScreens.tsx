@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { GlowBuzzLogo } from './GlowBuzzLogo';
 
@@ -88,7 +88,22 @@ export const AuthScreens: React.FC = () => {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
 
+  // El botón "atrás" y el deslizar hacia el costado recorren las pantallas de acceso.
+  useEffect(() => {
+    window.history.replaceState({ gbAuth: 'welcome' }, '');
+    const onPop = (event: PopStateEvent) => {
+      const saved = event.state as { gbAuth?: Mode } | null;
+      if (saved?.gbAuth) {
+        setMode(saved.gbAuth);
+        setError(null);
+      }
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
   const go = (next: Mode) => {
+    if (next !== mode) window.history.pushState({ gbAuth: next }, '');
     setMode(next);
     setError(null);
     setPassword('');
