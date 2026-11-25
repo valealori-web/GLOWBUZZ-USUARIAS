@@ -45,7 +45,9 @@ export const LiveBookingModal: React.FC<LiveBookingModalProps> = ({ isOpen, onCl
     setError(null);
     setDone(null);
     fetchBusySlots(live.businessId, toDateKey(new Date())).then(setBusy);
-  }, [isOpen, live, serviceName]);
+  // Se depende del id y no del objeto: el catálogo se recarga cada 30 s y no debe reiniciar la reserva en curso.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, live?.businessId, serviceName]);
 
   const service: LiveService | undefined = live?.services.find((s) => s.id === serviceId);
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HEADER_CONTAINER, HeaderLogo, BackButton, HeaderIconButton } from '../components/HeaderParts';
 import { Look, Salon, ActiveScreen } from '../types';
 import { CityMap } from '../components/CityMap';
+import { trackEvent } from '../lib/track';
 
 interface SalonProfileViewProps {
   salon: Salon;
@@ -52,6 +53,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
   const handleSelectService = (name: string, price: string) => {
     setSelectedService(name);
     setSelectedPrice(price);
+    trackEvent('reservar_perfil', { businessId: salon.id, serviceName: name });
     onShowToast(`Seleccionado: ${name}`, 'check');
     document.getElementById('booking-sheet')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -177,9 +179,10 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
           <div className="mt-4 flex items-center gap-2">
             <button
               type="button"
-              onClick={() =>
-                document.getElementById('booking-sheet')?.scrollIntoView({ behavior: 'smooth' })
-              }
+              onClick={() => {
+                trackEvent('reservar_perfil', { businessId: salon.id });
+                document.getElementById('booking-sheet')?.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="flex-1 h-10 rounded-lg bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] text-sm font-semibold transition-colors"
             >
               Reservar turno

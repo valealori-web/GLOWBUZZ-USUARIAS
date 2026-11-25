@@ -9,6 +9,7 @@ import { distanceKm, formatDistance } from './lib/geo';
 import { useUserLocation } from './lib/useUserLocation';
 import { NotificationItem } from './types';
 import { useCurrentUser } from './context/AuthContext';
+import { trackEvent } from './lib/track';
 import { LiveCatalog, fetchLiveCatalog } from './lib/liveData';
 import { LiveBookingModal } from './components/LiveBookingModal';
 import { LoyaltyView } from './views/LoyaltyView';
@@ -243,6 +244,7 @@ export default function App() {
         return prev.filter((id) => id !== lookId);
       } else {
         showToast('¡Guardado en tus tableros de inspiración privada!', 'bookmark');
+        trackEvent('guardar_look', { businessId: looks.find((l) => l.id === lookId)?.salonId });
         return [...prev, lookId];
       }
     });
@@ -277,12 +279,15 @@ export default function App() {
     provider?: 'Fresha' | 'Timely' | 'Calendly' | 'WhatsApp';
   }) => {
     const matched = Object.values(salons).find((salon) => salon.name === details.salonName);
+    // Interés en reservar: se cuenta también en comercios de ejemplo.
+    trackEvent('reservar', { businessId: matched?.id, serviceName: details.serviceName });
     if (matched?.demo) {
       showToast('Comercio de ejemplo: aún no recibe reservas', 'info');
       return;
     }
     const liveSalon = matched?.live ? matched : undefined;
     if (liveSalon) {
+      trackEvent('abrir_calendario', { businessId: liveSalon.id, serviceName: details.serviceName });
       setLiveBooking({ salonId: liveSalon.id, serviceName: details.serviceName });
       return;
     }
