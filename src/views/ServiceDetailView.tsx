@@ -539,7 +539,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
       </main>
 
       {/* Mobile Fixed Bottom Booking Bar (Hidden on desktop) */}
-      <div className="fixed bottom-16 left-0 right-0 z-30 bg-[#FFFFFF]/95 backdrop-blur-md border-t border-[#F1F1F1] px-4 py-2.5 shadow-[0_-4px_12px_rgba(17,17,17,0.06)] md:hidden">
+      <div className="fixed bottom-[calc(4rem+env(safe-area-inset-bottom,0px))] left-0 right-0 z-30 bg-[#FFFFFF]/95 backdrop-blur-md border-t border-[#F1F1F1] px-4 py-2.5 shadow-[0_-4px_12px_rgba(17,17,17,0.06)] md:hidden">
         <div className="max-w-md mx-auto flex items-center gap-3">
           <div className="flex flex-col min-w-0">
             <span className="text-[10px] uppercase font-bold text-[#6B6B6B]">{isLive ? 'Reserva directa' : 'Turno elegido'}</span>
